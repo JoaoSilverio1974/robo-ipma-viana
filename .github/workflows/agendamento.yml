@@ -1,7 +1,9 @@
 name: Atualizacao Diaria IPMA
 on:
+  push:
+    branches: [ main ]  # <--- Adiciona estas duas linhas! O robô corre mal faças "Commit"
   schedule:
-    - cron: '0 0,6,12,18 * * *'  # Corre às 00h, 06h, 12h e 18h (UTC)
+    - cron: '0 1,6,12,18 * * *'
   workflow_dispatch: # Permite correr manualmente para testar
 
 jobs:
