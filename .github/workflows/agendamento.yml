@@ -1,0 +1,30 @@
+name: Atualizacao Diaria IPMA
+on:
+  schedule:
+    - cron: '0 0,6,12,18 * * *'  # Corre às 00h, 06h, 12h e 18h (UTC)
+  workflow_dispatch: # Permite correr manualmente para testar
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Instalar Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Instalar dependencias
+        run: |
+          pip install -r requirements.txt
+
+      - name: Correr o robo
+        run: python main.py
+
+      - name: Guardar o ficheiro como resultado
+        uses: actions/upload-artifact@v4
+        with:
+          name: dados-ipma
+          path: Painel_Mestre_IPMA.xlsx
