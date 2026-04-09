@@ -38,12 +38,11 @@ dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5:
 # --- 3. EXTRAÇÃO DOS DADOS DO IPMA ---
 print(f"🌍 A aceder ao IPMA: {url}")
 driver.get(url)
-time.sleep(6) # Espera o site carregar
+time.sleep(6)
 
 dados_finais = []
 
 try:
-    # Selecionar Distrito de Viana do Castelo (16)
     caixa_distrito = None
     for caixa in driver.find_elements(By.TAG_NAME, "select"):
         if "Viana do Castelo" in caixa.text:
@@ -67,9 +66,8 @@ for codigo_id, nome_concelho in concelhos_dico.items():
         
         if caixa_concelho:
             caixa_concelho.select_by_visible_text(nome_concelho)
-            time.sleep(3) # Tempo para os gráficos amCharts carregarem
+            time.sleep(3)
             
-            # Injeção de JS para ler a memória do gráfico
             dados_brutos = driver.execute_script("""
                 if (window.AmCharts && window.AmCharts.charts) {
                     return window.AmCharts.charts.map(c => c.dataProvider);
@@ -103,44 +101,31 @@ for codigo_id, nome_concelho in concelhos_dico.items():
 
 driver.quit()
 
-# --- 4. GERAR O EXCEL ---
+# --- 4. GERAR O EXCEL LOCAL ---
 nome_ficheiro = "Painel_Mestre_IPMA.xlsx"
 df = pd.DataFrame(dados_finais)
 df.to_excel(nome_ficheiro, index=False)
-print(f"📊 Excel gerado com {len(df)} linhas.")
+print(f"📊 Excel gerado localmente com {len(df)} linhas.")
 
-# --- 5. UPLOAD PARA O GOOGLE DRIVE ---
-# Substitui pelo ID da tua pasta (o que aparece no link do Google Drive)
-ID_DA_PASTA = "1RtTVsxP3r9zWhSAJvmVhKs4VjNUeKEyg" 
+# --- 5. UPLOAD (ATUALIZAÇÃO) PARA O GOOGLE DRIVE ---
+ID_DO_FICHEIRO = "1FohuDErPimGRCudx5GULlFXIIvSTup3H" 
 
-print("☁️ A iniciar upload para o Google Drive...")
+print("☁️ A iniciar atualização do ficheiro no Google Drive...")
 try:
-    # Carregar credenciais a partir do "Secret" do GitHub
     creds_json = os.environ.get('GDRIVE_CREDENTIALS')
-    if not creds_json:
-        raise Exception("Secret GDRIVE_CREDENTIALS não encontrado!")
-        
     info_chave = json.loads(creds_json)
     creds = service_account.Credentials.from_service_account_info(info_chave)
     service = build('drive', 'v3', credentials=creds)
 
-    # Procurar se o ficheiro já existe na pasta para o atualizar
-    query = f"name='{nome_ficheiro}' and '{ID_DA_PASTA}' in parents and trashed=false"
-    results = service.files().list(q=query, fields="files(id)").execute()
-    files = results.get('files', [])
-
-    file_metadata = {'name': nome_ficheiro, 'parents': [ID_DA_PASTA]}
     media = MediaFileUpload(nome_ficheiro, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
-    if files:
-        # Atualiza o ficheiro existente
-        file_id = files[0]['id']
-        service.files().update(fileId=file_id, media_body=media).execute()
-        print(f"✅ Ficheiro atualizado com sucesso! ID: {file_id}")
-    else:
-        # Cria um novo ficheiro
-        file = service.files().create(body=file_metadata, media_body=media, fields='id').execute()
-        print(f"✅ Novo ficheiro criado com sucesso! ID: {file.get('id')}")
+    service.files().update(
+        fileId=ID_DO_FICHEIRO,
+        media_body=media,
+        supportsAllDrives=True
+    ).execute()
+    
+    print(f"✅ SUCESSO! Dados injetados no ficheiro ID: {ID_DO_FICHEIRO}")
 
 except Exception as e:
-    print(f"❌ Falha no upload para o Drive: {e}")
+    print(f"❌ Falha no upload: {e}")
