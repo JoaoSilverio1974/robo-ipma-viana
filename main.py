@@ -89,8 +89,9 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                         "Dia": dado.get("dt"),
                         "Temp_Max": dado.get("tt_max"),
                         "Temp_Min": dado.get("tt_min"),
-                        "Hum_Max": dado.get("hr_max"),
-                        "Hum_Min": dado.get("hr_min"),
+                        # Procura estas linhas no teu código e acrescenta o / 100 no fim
+                        "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else None,
+                        "Hum_Min": dado.get("hr_min") / 100 if dado.get("hr_min") else None,
                         "Vento_Int": dict_vento.get(dado.get("ff_class"), "N/D"),
                         "Vento_Dir": dado.get("ff_class_2"),
                         "Precip": dict_chuva.get(dado.get("rr_class"), "N/D"),
