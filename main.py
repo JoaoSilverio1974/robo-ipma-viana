@@ -12,7 +12,7 @@ from google.oauth2 import service_account
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
-# --- 1. CONFIGURAÇÃO DO NAVEGADOR (MODO INVISÍVEL) ---
+# --- 1. CONFIGURAÇÃO DO NAVEGADOR ---
 print("🤖 A iniciar o motor do Robô...")
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -22,7 +22,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-# --- 2. CONFIGURAÇÕES DOS DADOS ---
+# --- 2. CONFIGURAÇÕES E DICIONÁRIOS ---
 url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
 concelhos_dico = {
     "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
@@ -32,86 +32,84 @@ concelhos_dico = {
 }
 
 dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
-dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
+dict_chuva = {0: "Sem chuva", 1: "Chuva fraca", 2: "Chuva moderada", 3: "Chuva forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
-# --- 3. EXTRAÇÃO DOS DADOS DO IPMA ---
-print(f"🌍 A aceder ao IPMA: {url}")
+# --- 3. EXTRAÇÃO DOS DADOS ---
+print(f"🌍 A aceder ao IPMA...")
 driver.get(url)
 time.sleep(6)
 
 dados_finais = []
 
+# Selecionar Distrito
 try:
-    caixa_distrito = None
     for caixa in driver.find_elements(By.TAG_NAME, "select"):
         if "Viana do Castelo" in caixa.text:
-            caixa_distrito = Select(caixa)
+            Select(caixa).select_by_visible_text("Viana do Castelo")
+            time.sleep(2)
             break
-    if caixa_distrito:
-        caixa_distrito.select_by_visible_text("Viana do Castelo")
-        time.sleep(2)
-        print("📍 Distrito Viana do Castelo selecionado.")
 except Exception as e:
-    print(f"⚠️ Erro ao selecionar distrito: {e}")
+    print(f"⚠️ Erro no distrito: {e}")
 
+# Loop pelos Concelhos
 for codigo_id, nome_concelho in concelhos_dico.items():
     try:
-        print(f"📥 A processar: {nome_concelho}...")
-        caixa_concelho = None
+        print(f"📥 A recolher: {nome_concelho}...")
         for caixa in driver.find_elements(By.TAG_NAME, "select"):
             if "Caminha" in caixa.text and "Melgaço" in caixa.text:
-                caixa_concelho = Select(caixa)
+                Select(caixa).select_by_visible_text(nome_concelho)
+                time.sleep(3)
                 break
         
-        if caixa_concelho:
-            caixa_concelho.select_by_visible_text(nome_concelho)
-            time.sleep(3)
+        dados_brutos = driver.execute_script("return window.AmCharts && window.AmCharts.charts ? window.AmCharts.charts.map(c => c.dataProvider) : null;")
+        
+        if dados_brutos:
+            dados_tempo = dados_brutos[0]
+            dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
             
-            dados_brutos = driver.execute_script("""
-                if (window.AmCharts && window.AmCharts.charts) {
-                    return window.AmCharts.charts.map(c => c.dataProvider);
-                }
-                return null;
-            """)
-            
-            if dados_brutos:
-                dados_tempo = dados_brutos[0]
-                dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
+            for idx, dado in enumerate(dados_tempo):
+                v_risco = dado.get("rcm")
+                if v_risco is None and len(dados_risco) > idx:
+                    v_risco = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
                 
-                for idx, dado in enumerate(dados_tempo):
-                    v_risco = dado.get("rcm")
-                    if v_risco is None and len(dados_risco) > idx:
-                        v_risco = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
-                    
-                    dados_finais.append({
-                        "Concelho": nome_concelho,
-                        "Dia": dado.get("dt"),
-                        "Temp_Max": dado.get("tt_max"),
-                        "Temp_Min": dado.get("tt_min"),
-                        # Procura estas linhas no teu código e acrescenta o / 100 no fim
-                        "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else None,
-                        "Hum_Min": dado.get("hr_min") / 100 if dado.get("hr_min") else None,
-                        "Vento_Int": dict_vento.get(dado.get("ff_class"), "N/D"),
-                        "Vento_Dir": dado.get("ff_class_2"),
-                        "Precip": dict_chuva.get(dado.get("rr_class"), "N/D"),
-                        "Risco": dict_risco.get(v_risco, "N/D")
-                    })
+                dados_finais.append({
+                    "Concelho": nome_concelho,
+                    "Dia": dado.get("dt"),
+                    "Temp_Max": dado.get("tt_max"),
+                    "Temp_Min": dado.get("tt_min"),
+                    "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else 0, # CORREÇÃO %
+                    "Hum_Min": dado.get("hr_min") / 100 if dado.get("hr_min") else 0, # CORREÇÃO %
+                    "Vento_Int": dict_vento.get(dado.get("ff_class"), "N/D"),
+                    "Vento_Dir": dado.get("ff_class_2"),
+                    "Precip": dict_chuva.get(dado.get("rr_class"), "N/D"),
+                    "Risco": dict_risco.get(v_risco, "N/D")
+                })
     except Exception as e:
         print(f"❌ Erro em {nome_concelho}: {e}")
 
 driver.quit()
 
-# --- 4. GERAR O EXCEL LOCAL ---
-nome_ficheiro = "Painel_Mestre_IPMA.xlsx"
+# --- 4. TRATAMENTO E ORDENAÇÃO DOS DADOS ---
+print("📊 A organizar dados por data...")
 df = pd.DataFrame(dados_finais)
-df.to_excel(nome_ficheiro, index=False)
-print(f"📊 Excel gerado localmente com {len(df)} linhas.")
 
-# --- 5. UPLOAD (ATUALIZAÇÃO) PARA O GOOGLE DRIVE ---
+# Converter Dia para data real para ordenar corretamente
+df['Dia'] = pd.to_datetime(df['Dia'])
+
+# ORDENAR: Primeiro por DIA, depois por CONCELHO
+df = df.sort_values(by=['Dia', 'Concelho'])
+
+# Voltar a formatar a data para texto bonito (DD-MM-AAAA)
+df['Dia'] = df['Dia'].dt.strftime('%d-%m-%Y')
+
+nome_ficheiro = "Painel_Mestre_IPMA.xlsx"
+df.to_excel(nome_ficheiro, index=False)
+
+# --- 5. ATUALIZAÇÃO NO GOOGLE DRIVE ---
 ID_DO_FICHEIRO = "1FohuDErPimGRCudx5GULlFXIIvSTup3H" 
 
-print("☁️ A iniciar atualização do ficheiro no Google Drive...")
+print("☁️ A atualizar ficheiro no Drive...")
 try:
     creds_json = os.environ.get('GDRIVE_CREDENTIALS')
     info_chave = json.loads(creds_json)
@@ -126,7 +124,7 @@ try:
         supportsAllDrives=True
     ).execute()
     
-    print(f"✅ SUCESSO! Dados injetados no ficheiro ID: {ID_DO_FICHEIRO}")
+    print(f"✅ SUCESSO TOTAL! O ficheiro foi atualizado e organizado.")
 
 except Exception as e:
     print(f"❌ Falha no upload: {e}")
