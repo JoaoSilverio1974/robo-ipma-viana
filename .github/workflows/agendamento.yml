@@ -1,20 +1,20 @@
 name: Atualizacao Diaria IPMA
 on:
   push:
-    branches: [ main ]  # <--- Adiciona estas duas linhas! O robô corre mal faças "Commit"
+    branches: [ main ]
   schedule:
-    - cron: '0 1,6,12,18 * * *'
-  workflow_dispatch: # Permite correr manualmente para testar
+    - cron: '0 0,6,12,18 * * *'
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4 # Atualizado para v4
 
       - name: Instalar Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5 # Atualizado para v5
         with:
           python-version: '3.9'
 
@@ -24,9 +24,11 @@ jobs:
 
       - name: Correr o robo
         run: python main.py
+        env:
+          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
 
       - name: Guardar o ficheiro como resultado
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4 # Já estava em v4
         with:
           name: dados-ipma
           path: Painel_Mestre_IPMA.xlsx
