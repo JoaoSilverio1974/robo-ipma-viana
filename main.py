@@ -111,7 +111,7 @@ print(f"📊 Excel gerado com {len(df)} linhas.")
 
 # --- 5. UPLOAD PARA O GOOGLE DRIVE ---
 # Substitui pelo ID da tua pasta (o que aparece no link do Google Drive)
-ID_DA_PASTA = "ID_DA_TUA_PASTA_AQUI" 
+ID_DA_PASTA = "1RtTVsxP3r9zWhSAJvmVhKs4VjNUeKEyg" 
 
 print("☁️ A iniciar upload para o Google Drive...")
 try:
