@@ -2,6 +2,7 @@ import os
 import json
 import time
 import pandas as pd
+from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -21,7 +22,7 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-# --- 2. DICIONÁRIOS ---
+# --- 2. DICIONÁRIOS E CONFIGURAÇÕES ---
 url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
 concelhos_dico = {
     "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
@@ -34,11 +35,16 @@ dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
 dict_chuva = {0: "Sem chuva", 1: "Chuva fraca", 2: "Chuva moderada", 3: "Chuva forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
+# IDs dos ficheiros no teu Google Drive
+ID_XLSX = "1FohuDErPimGRCudx5GULlFXIIvSTup3H"
+ID_CSV = "1nNRoxh8BJczQDl292RZC6nphC16Sk0wa"
+
 # --- 3. EXTRAÇÃO DOS DADOS ---
 driver.get(url)
 time.sleep(6)
 dados_finais = []
 
+# Selecionar Distrito
 try:
     for caixa in driver.find_elements(By.TAG_NAME, "select"):
         if "Viana do Castelo" in caixa.text:
@@ -68,7 +74,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                 
                 dados_finais.append({
                     "Concelho": nome_concelho,
-                    "Dia": dado.get("dt"),
+                    "Dia_Bruto": dado.get("dt"), # Guardamos o número puro para tratar depois
                     "Temp_Max": dado.get("tt_max"),
                     "Temp_Min": dado.get("tt_min"),
                     "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else 0,
@@ -82,37 +88,57 @@ for codigo_id, nome_concelho in concelhos_dico.items():
 
 driver.quit()
 
-# --- 4. TRATAMENTO E ORDENAÇÃO (O SEGREDO ESTÁ AQUI) ---
+# --- 4. TRATAMENTO DE DATAS (O SEGREDO PARA EVITAR O ERRO 1970) ---
 df = pd.DataFrame(dados_finais)
+agora = datetime.now()
 
-# 1. Garante que o Dia é tratado como data para ordenar cronologicamente
-df['Dia'] = pd.to_datetime(df['Dia'])
+def tratar_data_ipma(dia_extraido):
+    try:
+        dia = int(dia_extraido)
+        ano, mes = agora.year, agora.month
+        # Se o dia vindo do IPMA for muito menor que o dia atual, pertence ao mês seguinte
+        if dia < agora.day - 10:
+            mes += 1
+            if mes > 12:
+                mes = 1
+                ano += 1
+        return datetime(ano, mes, dia)
+    except:
+        return None
 
-# 2. Ordena PRIMEIRO por Data e DEPOIS por Concelho (Exatamente como no Colab)
+df['Dia'] = df['Dia_Bruto'].apply(tratar_data_ipma)
+df = df.drop(columns=['Dia_Bruto'])
+
+# Ordenar por Data e Concelho
 df = df.sort_values(by=['Dia', 'Concelho'])
 
-# 3. Transforma a data no formato de leitura do Excel
-df['Dia'] = df['Dia'].dt.strftime('%d-%m-%Y')
+# Formato ISO (AAAA-MM-DD) - O único que o Google Sheets não baralha
+df['Dia'] = df['Dia'].dt.strftime('%Y-%m-%d')
 
-nome_ficheiro = "Painel_Mestre_IPMA.xlsx"
-df.to_excel(nome_ficheiro, index=False)
+# Gerar ficheiros locais temporários
+nome_xlsx = "Painel_Mestre_IPMA.xlsx"
+nome_csv = "Painel_Mestre_IPMA.csv"
+df.to_excel(nome_xlsx, index=False)
+df.to_csv(nome_csv, index=False, encoding='utf-8-sig')
 
-# --- 5. ATUALIZAÇÃO NO GOOGLE DRIVE ---
-ID_DO_FICHEIRO = "1FohuDErPimGRCudx5GULlFXIIvSTup3H" 
+# --- 5. FUNÇÃO DE ATUALIZAÇÃO NO DRIVE ---
+def upload_to_drive(file_path, file_id, mime_type):
+    try:
+        creds_json = os.environ.get('GDRIVE_CREDENTIALS')
+        info_chave = json.loads(creds_json)
+        creds = service_account.Credentials.from_service_account_info(info_chave)
+        service = build('drive', 'v3', credentials=creds)
 
-try:
-    creds_json = os.environ.get('GDRIVE_CREDENTIALS')
-    info_chave = json.loads(creds_json)
-    creds = service_account.Credentials.from_service_account_info(info_chave)
-    service = build('drive', 'v3', credentials=creds)
+        media = MediaFileUpload(file_path, mimetype=mime_type)
+        service.files().update(
+            fileId=file_id,
+            media_body=media,
+            supportsAllDrives=True
+        ).execute()
+        print(f"✅ {file_path} atualizado com sucesso no Drive!")
+    except Exception as e:
+        print(f"❌ Erro ao enviar {file_path}: {e}")
 
-    media = MediaFileUpload(nome_ficheiro, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
-
-    service.files().update(
-        fileId=ID_DO_FICHEIRO,
-        media_body=media,
-        supportsAllDrives=True
-    ).execute()
-    print("✅ Ficheiro atualizado com a ordenação correta!")
-except Exception as e:
-    print(f"❌ Erro: {e}")
+# Executar os uploads
+upload_to_drive(nome_xlsx, ID_XLSX, 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+upload_to_drive(nome_csv, ID_CSV, 'text/csv')
