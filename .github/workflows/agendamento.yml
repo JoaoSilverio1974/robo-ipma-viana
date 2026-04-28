@@ -9,12 +9,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # ⚠️ CRUCIAL: Dá permissão ao robô para gravar ficheiros no teu repositório
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout do código
-        uses: actions/checkout@v4 # Atualizado para v4
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Necessário para o commit automático funcionar sem erros
 
       - name: Instalar Python
-        uses: actions/setup-python@v5 # Atualizado para v5
+        uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
@@ -24,11 +31,21 @@ jobs:
 
       - name: Correr o robo
         run: python main.py
+        # Nota: Se já apagaste o código do Drive no Python, podes apagar as duas linhas abaixo
         env:
           GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
 
-      - name: Guardar o ficheiro como resultado
-        uses: actions/upload-artifact@v4 # Já estava em v4
+      # NOVO: Guarda os ficheiros (CSV e XLSX) criados pelo Python de volta no GitHub
+      - name: Commit e Push dos Dados
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "🤖 Atualização Automática: Dados IPMA"
+          # O asterisco (*) garante que guarda o Painel_Mestre_IPMA.csv e o .xlsx
+          file_pattern: 'Painel_Mestre_IPMA.*' 
+
+      # Mantido como backup (Cria a pasta .zip para descarregares na aba 'Actions')
+      - name: Guardar os ficheiros como resultado
+        uses: actions/upload-artifact@v4
         with:
           name: dados-ipma
-          path: Painel_Mestre_IPMA.xlsx
+          path: Painel_Mestre_IPMA.*
