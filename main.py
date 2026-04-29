@@ -2,6 +2,7 @@ import os
 import json
 import time
 import pandas as pd
+import pytz
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -51,7 +52,8 @@ try:
             Select(caixa).select_by_visible_text("Viana do Castelo")
             time.sleep(2)
             break
-except: pass
+except Exception as e:
+    print(f"Erro ao selecionar distrito: {e}")
 
 for codigo_id, nome_concelho in concelhos_dico.items():
     try:
@@ -74,7 +76,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                 
                 dados_finais.append({
                     "Concelho": nome_concelho,
-                    "Dia_Bruto": dado.get("dt"), # Guardamos o número puro para tratar depois
+                    "Dia_Bruto": dado.get("dt"),
                     "Temp_Max": dado.get("tt_max"),
                     "Temp_Min": dado.get("tt_min"),
                     "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else 0,
@@ -84,20 +86,26 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                     "Precip": dict_chuva.get(dado.get("rr_class"), "N/D"),
                     "Risco": dict_risco.get(v_risco, "N/D")
                 })
-    except: continue
+    except Exception as e:
+        print(f"Erro no concelho {nome_concelho}: {e}")
+        continue
 
 driver.quit()
 
-# --- 4. TRATAMENTO DE DATAS (O SEGREDO PARA EVITAR O ERRO 1970) ---
+# --- 4. TRATAMENTO DE DADOS E TIMESTAMPS ---
 df = pd.DataFrame(dados_finais)
-agora = datetime.now()
+
+# Definir fuso horário de Portugal para a coluna de criação
+fuso_pt = pytz.timezone('Europe/Lisbon')
+agora_pt = datetime.now(fuso_pt)
+df['Data_Extracao'] = agora_pt.strftime('%d/%m/%Y %H:%M:%S')
 
 def tratar_data_ipma(dia_extraido):
     try:
         dia = int(dia_extraido)
-        ano, mes = agora.year, agora.month
-        # Se o dia vindo do IPMA for muito menor que o dia atual, pertence ao mês seguinte
-        if dia < agora.day - 10:
+        # Usamos a data de PT para o cálculo do mês/ano
+        ano, mes = agora_pt.year, agora_pt.month
+        if dia < agora_pt.day - 10:
             mes += 1
             if mes > 12:
                 mes = 1
@@ -112,10 +120,10 @@ df = df.drop(columns=['Dia_Bruto'])
 # Ordenar por Data e Concelho
 df = df.sort_values(by=['Dia', 'Concelho'])
 
-# Formato ISO (AAAA-MM-DD) - O único que o Google Sheets não baralha
+# Formato ISO para a coluna Dia (Excel amigável)
 df['Dia'] = df['Dia'].dt.strftime('%Y-%m-%d')
 
-# Gerar ficheiros locais temporários
+# Gerar ficheiros locais
 nome_xlsx = "Painel_Mestre_IPMA.xlsx"
 nome_csv = "Painel_Mestre_IPMA.csv"
 df.to_excel(nome_xlsx, index=False)
@@ -125,6 +133,10 @@ df.to_csv(nome_csv, index=False, encoding='utf-8-sig')
 def upload_to_drive(file_path, file_id, mime_type):
     try:
         creds_json = os.environ.get('GDRIVE_CREDENTIALS')
+        if not creds_json:
+            print(f"⚠️ Credenciais não encontradas para {file_path}. Ignorando Drive.")
+            return
+
         info_chave = json.loads(creds_json)
         creds = service_account.Credentials.from_service_account_info(info_chave)
         service = build('drive', 'v3', credentials=creds)
