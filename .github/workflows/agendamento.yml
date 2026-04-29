@@ -1,16 +1,19 @@
 name: Atualizacao Diaria IPMA
+
 on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 * * *'
+    # O primeiro campo '15' define o minuto. 
+    # O segundo '*' define que corre em todas as horas.
+    - cron: '15 * * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
     
-    # ⚠️ CRUCIAL: Dá permissão ao robô para gravar ficheiros no teu repositório
+    # Permissão necessária para o robô conseguir gravar os dados no GitHub
     permissions:
       contents: write
 
@@ -18,7 +21,7 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Necessário para o commit automático funcionar sem erros
+          fetch-depth: 0
 
       - name: Instalar Python
         uses: actions/setup-python@v5
@@ -31,20 +34,17 @@ jobs:
 
       - name: Correr o robo
         run: python main.py
-        # Nota: Se já apagaste o código do Drive no Python, podes apagar as duas linhas abaixo
         env:
           GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
 
-      # NOVO: Guarda os ficheiros (CSV e XLSX) criados pelo Python de volta no GitHub
       - name: Commit e Push dos Dados
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🤖 Atualização Automática: Dados IPMA"
-          # O asterisco (*) garante que guarda o Painel_Mestre_IPMA.csv e o .xlsx
+          commit_message: "🤖 Atualização Automática: Dados IPMA (Minuto 15)"
+          # Garante que guarda tanto o CSV como o XLSX
           file_pattern: 'Painel_Mestre_IPMA.*' 
 
-      # Mantido como backup (Cria a pasta .zip para descarregares na aba 'Actions')
-      - name: Guardar os ficheiros como resultado
+      - name: Guardar os ficheiros como resultado (Artifacts)
         uses: actions/upload-artifact@v4
         with:
           name: dados-ipma
