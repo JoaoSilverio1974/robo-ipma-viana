@@ -1,5 +1,5 @@
-import time
 import pandas as pd
+import time
 from datetime import datetime
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
@@ -8,17 +8,23 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
 
-# --- 1. CONFIGURAÇÃO DO NAVEGADOR ---
+print("🤖 A iniciar o motor do Robô no GitHub Actions...")
+
+# --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+chrome_options.add_argument("--headless") # Corre de forma invisível no GitHub
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
-# --- 2. DICIONÁRIOS E CONFIGURAÇÕES ---
 url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
+print(f"🌍 A entrar no IPMA: {url}")
+driver.get(url)
+time.sleep(5)
+
+dados_finais = []
 concelhos_dico = {
     "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
     "1604": "Monção", "1605": "Paredes de Coura", "1606": "Ponte da Barca",
@@ -27,80 +33,259 @@ concelhos_dico = {
 }
 
 dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
-dict_chuva = {0: "Sem chuva", 1: "Chuva fraca", 2: "Chuva moderada", 3: "Chuva forte"}
+dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
-# --- 3. EXTRAÇÃO DOS DADOS ---
-driver.get(url)
-time.sleep(6)
-dados_finais = []
+caixa_distrito = None
+for caixa in driver.find_elements(By.TAG_NAME, "select"):
+    if "Viana do Castelo" in caixa.text:
+        caixa_distrito = Select(caixa)
+        break
+if caixa_distrito:
+    caixa_distrito.select_by_visible_text("Viana do Castelo")
+    time.sleep(2)
 
-try:
-    for caixa in driver.find_elements(By.TAG_NAME, "select"):
-        if "Viana do Castelo" in caixa.text:
-            Select(caixa).select_by_visible_text("Viana do Castelo")
-            time.sleep(2)
-            break
-except: pass
+current_date_today = datetime.now().date()
 
+print("✅ Início da Extração de Dados...")
 for codigo_id, nome_concelho in concelhos_dico.items():
     try:
+        print(f"A descarregar: {nome_concelho}...")
+        caixa_concelho = None
         for caixa in driver.find_elements(By.TAG_NAME, "select"):
             if "Caminha" in caixa.text and "Melgaço" in caixa.text:
-                Select(caixa).select_by_visible_text(nome_concelho)
-                time.sleep(3)
+                caixa_concelho = Select(caixa)
                 break
-        
-        script = "return window.AmCharts && window.AmCharts.charts ? window.AmCharts.charts.map(c => c.dataProvider) : null;"
-        dados_brutos = driver.execute_script(script)
-        
-        if dados_brutos:
-            dados_tempo = dados_brutos[0]
-            dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
-            for idx, dado in enumerate(dados_tempo):
-                v_risco = dado.get("rcm")
-                if v_risco is None and len(dados_risco) > idx:
-                    v_risco = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
-                
-                dados_finais.append({
-                    "Concelho": nome_concelho,
-                    "Dia_Bruto": dado.get("dt"),
-                    "Temp_Max": dado.get("tt_max"),
-                    "Temp_Min": dado.get("tt_min"),
-                    "Hum_Max": dado.get("hr_max") / 100 if dado.get("hr_max") else 0,
-                    "Hum_Min": dado.get("hr_min") / 100 if dado.get("hr_min") else 0,
-                    "Vento_Int": dict_vento.get(dado.get("ff_class"), "N/D"),
-                    "Vento_Dir": dado.get("ff_class_2"),
-                    "Precip": dict_chuva.get(dado.get("rr_class"), "N/D"),
-                    "Risco": dict_risco.get(v_risco, "N/D")
-                })
-    except: continue
+
+        if caixa_concelho:
+            caixa_concelho.select_by_visible_text(nome_concelho)
+            time.sleep(2.5)
+
+            dados_brutos = driver.execute_script("""
+                let extraidos = [];
+                if (window.AmCharts && window.AmCharts.charts) {
+                    for (let i = 0; i < window.AmCharts.charts.length; i++) {
+                        extraidos.push(window.AmCharts.charts[i].dataProvider);
+                    }
+                }
+                return extraidos;
+            """)
+
+            if dados_brutos and len(dados_brutos) > 0:
+                dados_tempo = dados_brutos[0]
+                dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
+
+                for idx, dado in enumerate(dados_tempo):
+                    dado_day = dado.get("dt")
+                    if dado_day is not None:
+                        try:
+                            day_int = int(dado_day)
+                            y = current_date_today.year
+                            m = current_date_today.month
+
+                            if day_int < current_date_today.day - 10:
+                                m += 1
+                                if m > 12:
+                                    m = 1
+                                    y += 1
+
+                            dado_full_date = datetime(y, m, day_int).date()
+
+                            delta_days = (dado_full_date - current_date_today).days
+                            if 0 <= delta_days <= 9:
+                                h_max = dado.get("hr_max")
+                                h_min = dado.get("hr_min")
+
+                                valor_risco_num = dado.get("rcm")
+                                if valor_risco_num is None and len(dados_risco) > idx:
+                                    valor_risco_num = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
+
+                                final_h_max = h_max if h_max is not None else "N/D"
+                                final_h_min = h_min if h_min is not None else "N/D"
+
+                                dados_finais.append({
+                                    "Código DICO": codigo_id,
+                                    "Concelho": nome_concelho,
+                                    "Dia do Mês": dado_full_date,
+                                    "Temp. Máx (ºC)": dado.get("tt_max", "N/D"),
+                                    "Temp. Mín (ºC)": dado.get("tt_min", "N/D"),
+                                    "Humidade Máx (%)": final_h_max,
+                                    "Humidade Mín (%)": final_h_min,
+                                    "Intensidade Vento": dict_vento.get(dado.get("ff_class", 1), "N/D"),
+                                    "Direção Vento": dado.get("ff_class_2", "N/D"),
+                                    "Precipitação": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
+                                    "Risco de Incêndio": dict_risco.get(valor_risco_num, "N/D")
+                                })
+                        except ValueError:
+                            pass
+    except Exception as e:
+        print(f"Erro a processar {nome_concelho}: {e}")
 
 driver.quit()
 
-# --- 4. TRATAMENTO ---
+print("📊 A preparar os ficheiros locais...")
 df = pd.DataFrame(dados_finais)
-agora = datetime.now()
+df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
+df = df.dropna(subset=['Dia do Mês'])
+df = df.sort_values(by=['Dia do Mês', 'Concelho'])
 
-def tratar_data_ipma(dia_extraido):
-    try:
-        dia = int(dia_extraido)
-        ano, mes = agora.year, agora.month
-        if dia < agora.day - 10:
-            mes += 1
-            if mes > 12: mes = 1; ano += 1
-        return datetime(ano, mes, dia)
-    except: return None
+colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
+for col in colunas_num:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
 
-df['Dia'] = df['Dia_Bruto'].apply(tratar_data_ipma)
-df = df.drop(columns=['Dia_Bruto'])
-df = df.sort_values(by=['Dia', 'Concelho'])
-df['Dia'] = df['Dia'].dt.strftime('%Y-%m-%d')
+df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
 
-# GERAÇÃO DOS FICHEIROS
-nome_xlsx = "Painel_Mestre_IPMA.xlsx"
+# Gera o CSV localmente
 nome_csv = "Painel_Mestre_IPMA.csv"
+df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 
+# Gera o XLSX localmente
+nome_xlsx = "Painel_Mestre_IPMA.xlsx"
 df.to_excel(nome_xlsx, index=False)
-df.to_csv(nome_csv, index=False, encoding='utf-8-sig')
-print("✅ Ficheiros gerados localmente!")
+
+print(f"🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")import pandas as pd
+import time
+from datetime import datetime
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
+
+print("🤖 A iniciar o motor do Robô no GitHub Actions...")
+
+# --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
+chrome_options = Options()
+chrome_options.add_argument("--headless") # Corre de forma invisível no GitHub
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
+
+url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
+print(f"🌍 A entrar no IPMA: {url}")
+driver.get(url)
+time.sleep(5)
+
+dados_finais = []
+concelhos_dico = {
+    "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
+    "1604": "Monção", "1605": "Paredes de Coura", "1606": "Ponte da Barca",
+    "1607": "Ponte de Lima", "1608": "Valença", "1609": "Viana do Castelo",
+    "1610": "Vila Nova de Cerveira"
+}
+
+dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
+dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
+dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
+
+caixa_distrito = None
+for caixa in driver.find_elements(By.TAG_NAME, "select"):
+    if "Viana do Castelo" in caixa.text:
+        caixa_distrito = Select(caixa)
+        break
+if caixa_distrito:
+    caixa_distrito.select_by_visible_text("Viana do Castelo")
+    time.sleep(2)
+
+current_date_today = datetime.now().date()
+
+print("✅ Início da Extração de Dados...")
+for codigo_id, nome_concelho in concelhos_dico.items():
+    try:
+        print(f"A descarregar: {nome_concelho}...")
+        caixa_concelho = None
+        for caixa in driver.find_elements(By.TAG_NAME, "select"):
+            if "Caminha" in caixa.text and "Melgaço" in caixa.text:
+                caixa_concelho = Select(caixa)
+                break
+
+        if caixa_concelho:
+            caixa_concelho.select_by_visible_text(nome_concelho)
+            time.sleep(2.5)
+
+            dados_brutos = driver.execute_script("""
+                let extraidos = [];
+                if (window.AmCharts && window.AmCharts.charts) {
+                    for (let i = 0; i < window.AmCharts.charts.length; i++) {
+                        extraidos.push(window.AmCharts.charts[i].dataProvider);
+                    }
+                }
+                return extraidos;
+            """)
+
+            if dados_brutos and len(dados_brutos) > 0:
+                dados_tempo = dados_brutos[0]
+                dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
+
+                for idx, dado in enumerate(dados_tempo):
+                    dado_day = dado.get("dt")
+                    if dado_day is not None:
+                        try:
+                            day_int = int(dado_day)
+                            y = current_date_today.year
+                            m = current_date_today.month
+
+                            if day_int < current_date_today.day - 10:
+                                m += 1
+                                if m > 12:
+                                    m = 1
+                                    y += 1
+
+                            dado_full_date = datetime(y, m, day_int).date()
+
+                            delta_days = (dado_full_date - current_date_today).days
+                            if 0 <= delta_days <= 9:
+                                h_max = dado.get("hr_max")
+                                h_min = dado.get("hr_min")
+
+                                valor_risco_num = dado.get("rcm")
+                                if valor_risco_num is None and len(dados_risco) > idx:
+                                    valor_risco_num = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
+
+                                final_h_max = h_max if h_max is not None else "N/D"
+                                final_h_min = h_min if h_min is not None else "N/D"
+
+                                dados_finais.append({
+                                    "Código DICO": codigo_id,
+                                    "Concelho": nome_concelho,
+                                    "Dia do Mês": dado_full_date,
+                                    "Temp. Máx (ºC)": dado.get("tt_max", "N/D"),
+                                    "Temp. Mín (ºC)": dado.get("tt_min", "N/D"),
+                                    "Humidade Máx (%)": final_h_max,
+                                    "Humidade Mín (%)": final_h_min,
+                                    "Intensidade Vento": dict_vento.get(dado.get("ff_class", 1), "N/D"),
+                                    "Direção Vento": dado.get("ff_class_2", "N/D"),
+                                    "Precipitação": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
+                                    "Risco de Incêndio": dict_risco.get(valor_risco_num, "N/D")
+                                })
+                        except ValueError:
+                            pass
+    except Exception as e:
+        print(f"Erro a processar {nome_concelho}: {e}")
+
+driver.quit()
+
+print("📊 A preparar os ficheiros locais...")
+df = pd.DataFrame(dados_finais)
+df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
+df = df.dropna(subset=['Dia do Mês'])
+df = df.sort_values(by=['Dia do Mês', 'Concelho'])
+
+colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
+for col in colunas_num:
+    df[col] = pd.to_numeric(df[col], errors='coerce')
+
+df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
+
+# Gera o CSV localmente
+nome_csv = "Painel_Mestre_IPMA.csv"
+df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
+
+# Gera o XLSX localmente
+nome_xlsx = "Painel_Mestre_IPMA.xlsx"
+df.to_excel(nome_xlsx, index=False)
+
+print(f"🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
