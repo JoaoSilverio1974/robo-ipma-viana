@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
-    # Fundamental para o robô ter autorização para gravar ficheiros no teu repo
+    # Fundamental para o robô ter autorização para gravar os ficheiros atualizados
     permissions:
       contents: write
 
@@ -37,5 +37,5 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: "🤖 Atualização Automática: Dados IPMA"
-          # Força o GitHub a guardar os dois ficheiros que o script gerou
+          # Força o GitHub a guardar sempre os dois ficheiros (CSV e XLSX)
           file_pattern: 'Painel_Mestre_IPMA.csv Painel_Mestre_IPMA.xlsx'
