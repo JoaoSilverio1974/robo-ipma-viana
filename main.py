@@ -12,7 +12,7 @@ print("🤖 A iniciar o motor do Robô no GitHub Actions...")
 
 # --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
 chrome_options = Options()
-chrome_options.add_argument("--headless") # Corre de forma invisível no GitHub
+chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
 
@@ -36,7 +36,6 @@ dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
 dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
-# Selecionar Distrito
 caixa_distrito = None
 for caixa in driver.find_elements(By.TAG_NAME, "select"):
     if "Viana do Castelo" in caixa.text:
@@ -101,21 +100,22 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 if valor_risco_num is None and len(dados_risco) > idx:
                                     valor_risco_num = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
 
-                                final_h_max = h_max if h_max is not None else "N/D"
-                                final_h_min = h_min if h_min is not None else "N/D"
+                                # Cálculo da Humidade para Decimal (ex: 84.7 passa a 0.847)
+                                final_h_max = (h_max / 100) if h_max is not None else "N/D"
+                                final_h_min = (h_min / 100) if h_min is not None else "N/D"
 
+                                # Ordem e nomes EXATOS conforme a imagem
                                 dados_finais.append({
-                                    "Código DICO": codigo_id,
                                     "Concelho": nome_concelho,
-                                    "Dia do Mês": dado_full_date,
-                                    "Temp. Máx (ºC)": dado.get("tt_max", "N/D"),
-                                    "Temp. Mín (ºC)": dado.get("tt_min", "N/D"),
-                                    "Humidade Máx (%)": final_h_max,
-                                    "Humidade Mín (%)": final_h_min,
-                                    "Intensidade Vento": dict_vento.get(dado.get("ff_class", 1), "N/D"),
-                                    "Direção Vento": dado.get("ff_class_2", "N/D"),
-                                    "Precipitação": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
-                                    "Risco de Incêndio": dict_risco.get(valor_risco_num, "N/D")
+                                    "Temp_Max": dado.get("tt_max", "N/D"),
+                                    "Temp_Min": dado.get("tt_min", "N/D"),
+                                    "Hum_Max": final_h_max,
+                                    "Hum_Min": final_h_min,
+                                    "Vento_Int": dict_vento.get(dado.get("ff_class", 1), "N/D"),
+                                    "Vento_Dir": dado.get("ff_class_2", "N/D"),
+                                    "Precip": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
+                                    "Risco": dict_risco.get(valor_risco_num, "N/D"),
+                                    "Dia": dado_full_date
                                 })
                         except ValueError:
                             pass
@@ -127,27 +127,35 @@ driver.quit()
 print("📊 A preparar os ficheiros locais...")
 df = pd.DataFrame(dados_finais)
 
-# Adicionada uma proteção caso o site não devolva dados
 if not df.empty:
-    df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
-    df = df.dropna(subset=['Dia do Mês'])
-    df = df.sort_values(by=['Dia do Mês', 'Concelho'])
+    # Garantir a ordem exata das colunas
+    ordem_colunas = [
+        "Concelho", "Temp_Max", "Temp_Min", "Hum_Max", "Hum_Min", 
+        "Vento_Int", "Vento_Dir", "Precip", "Risco", "Dia"
+    ]
+    df = df[ordem_colunas]
 
-    colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
+    # Ordenar por Dia e depois por Concelho
+    df['Dia'] = pd.to_datetime(df['Dia'])
+    df = df.dropna(subset=['Dia'])
+    df = df.sort_values(by=['Dia', 'Concelho'])
+
+    # Converter numéricos
+    colunas_num = ["Temp_Max", "Temp_Min", "Hum_Max", "Hum_Min"]
     for col in colunas_num:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
-    df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
+    # Formatar a data EXATAMENTE como na imagem: DD/MM/YYYY
+    df['Dia'] = df['Dia'].dt.strftime('%d/%m/%Y')
 
-    # Gera o CSV localmente (Com utf-8-sig para os acentos ficarem perfeitos no Excel)
+    # Gerar os ficheiros
     nome_csv = "Painel_Mestre_IPMA.csv"
     df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 
-    # Gera o XLSX localmente
     nome_xlsx = "Painel_Mestre_IPMA.xlsx"
     df.to_excel(nome_xlsx, index=False)
 
-    print("🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
+    print("🎉 SUCESSO! Estrutura idêntica ao Excel original gerada.")
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
