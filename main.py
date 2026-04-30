@@ -159,3 +159,24 @@ if not df.empty:
     print("🎉 SUCESSO! Estrutura idêntica ao Excel original gerada.")
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
+
+
+# ==========================================
+# REGISTO DE HORA (LIVRO DE PONTO DO ROBÔ)
+# ==========================================
+import os
+
+# Capta a hora exata do servidor
+agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+log_file = "log_execucao.csv"
+
+# Se o ficheiro não existir, cria-o e faz o cabeçalho
+if not os.path.exists(log_file):
+    with open(log_file, "w", encoding="utf-8") as f:
+        f.write("Data_Hora_Execucao\n")
+
+# Adiciona a nova hora na linha de baixo (sem apagar as antigas)
+with open(log_file, "a", encoding="utf-8") as f:
+    f.write(f"{agora}\n")
+
+print(f"🕒 Registo de hora guardado no livro de ponto: {agora}")
