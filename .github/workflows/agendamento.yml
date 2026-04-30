@@ -1,38 +1,41 @@
-name: Atualizacao Diaria IPMA
+name: Robô IPMA - 10 Minutos
 
 on:
   push:
     branches: [ main ]
   schedule:
+    # Agendamento: Corre aos 10 minutos de todas as horas (00:10, 01:10...)
     - cron: '10 * * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    # Fundamental para o robô ter autorização para gravar ficheiros no teu repo
     permissions:
       contents: write
 
     steps:
-      - name: Checkout do código
+      - name: Aceder ao Código
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Instalar Python
+      - name: Preparar o Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
 
-      - name: Instalar dependencias
-        run: pip install pandas selenium webdriver-manager openpyxl
+      - name: Instalar Bibliotecas
+        run: pip install -r requirements.txt
 
-      - name: Correr o robo
+      - name: Executar o Extrator IPMA
         run: python main.py
 
-      - name: Commit e Push dos Dados
+      - name: Gravar Ficheiros no GitHub
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🤖 Atualização Automática: XLSX e CSV"
-          # Garante que o GitHub deteta e guarda ambos os ficheiros
-          file_pattern: 'Painel_Mestre_IPMA.xlsx Painel_Mestre_IPMA.csv'
+          commit_message: "🤖 Atualização Automática: Dados IPMA"
+          # Força o GitHub a guardar os dois ficheiros que o script gerou
+          file_pattern: 'Painel_Mestre_IPMA.csv Painel_Mestre_IPMA.xlsx'
