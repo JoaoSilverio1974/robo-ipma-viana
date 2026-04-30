@@ -4,16 +4,12 @@ on:
   push:
     branches: [ main ]
   schedule:
-    # O primeiro campo '15' define o minuto. 
-    # O segundo '*' define que corre em todas as horas.
     - cron: '10 * * * *'
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    # Permissão necessária para o robô conseguir gravar os dados no GitHub
     permissions:
       contents: write
 
@@ -29,23 +25,14 @@ jobs:
           python-version: '3.9'
 
       - name: Instalar dependencias
-        run: |
-          pip install -r requirements.txt
+        run: pip install pandas selenium webdriver-manager openpyxl
 
       - name: Correr o robo
         run: python main.py
-        env:
-          GDRIVE_CREDENTIALS: ${{ secrets.GDRIVE_CREDENTIALS }}
 
       - name: Commit e Push dos Dados
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "🤖 Atualização Automática: Dados IPMA (Minuto 15)"
-          # Garante que guarda tanto o CSV como o XLSX
-          file_pattern: 'Painel_Mestre_IPMA.*' 
-
-      - name: Guardar os ficheiros como resultado (Artifacts)
-        uses: actions/upload-artifact@v4
-        with:
-          name: dados-ipma
-          path: Painel_Mestre_IPMA.*
+          commit_message: "🤖 Atualização Automática: XLSX e CSV"
+          # Garante que o GitHub deteta e guarda ambos os ficheiros
+          file_pattern: 'Painel_Mestre_IPMA.xlsx Painel_Mestre_IPMA.csv'
