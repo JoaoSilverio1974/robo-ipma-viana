@@ -42,108 +42,7 @@ for caixa in driver.find_elements(By.TAG_NAME, "select"):
         caixa_distrito = Select(caixa)
         break
 if caixa_distrito:
-    caixa_distrito.select_by_visible_text("Viana do Castelo")
-    time.sleep(2)
-
-current_date_today = datetime.now().date()
-
-print("✅ Início da Extração de Dados...")
-for codigo_id, nome_concelho in concelhos_dico.items():
-    try:
-        print(f"A descarregar: {nome_concelho}...")
-        caixa_concelho = None
-        for caixa in driver.find_elements(By.TAG_NAME, "select"):
-            if "Caminha" in caixa.text and "Melgaço" in caixa.text:
-                caixa_concelho = Select(caixa)
-                break
-
-        if caixa_concelho:
-            caixa_concelho.select_by_visible_text(nome_concelho)
-            time.sleep(2.5)
-
-            dados_brutos = driver.execute_script("""
-                let extraidos = [];
-                if (window.AmCharts && window.AmCharts.charts) {
-                    for (let i = 0; i < window.AmCharts.charts.length; i++) {
-                        extraidos.push(window.AmCharts.charts[i].dataProvider);
-                    }
-                }
-                return extraidos;
-            """)
-
-            if dados_brutos and len(dados_brutos) > 0:
-                dados_tempo = dados_brutos[0]
-                dados_risco = dados_brutos[1] if len(dados_brutos) > 1 else []
-
-                for idx, dado in enumerate(dados_tempo):
-                    dado_day = dado.get("dt")
-                    if dado_day is not None:
-                        try:
-                            day_int = int(dado_day)
-                            y = current_date_today.year
-                            m = current_date_today.month
-
-                            if day_int < current_date_today.day - 10:
-                                m += 1
-                                if m > 12:
-                                    m = 1
-                                    y += 1
-
-                            dado_full_date = datetime(y, m, day_int).date()
-
-                            delta_days = (dado_full_date - current_date_today).days
-                            if 0 <= delta_days <= 9:
-                                h_max = dado.get("hr_max")
-                                h_min = dado.get("hr_min")
-
-                                valor_risco_num = dado.get("rcm")
-                                if valor_risco_num is None and len(dados_risco) > idx:
-                                    valor_risco_num = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
-
-                                final_h_max = h_max if h_max is not None else "N/D"
-                                final_h_min = h_min if h_min is not None else "N/D"
-
-                                dados_finais.append({
-                                    "Código DICO": codigo_id,
-                                    "Concelho": nome_concelho,
-                                    "Dia do Mês": dado_full_date,
-                                    "Temp. Máx (ºC)": dado.get("tt_max", "N/D"),
-                                    "Temp. Mín (ºC)": dado.get("tt_min", "N/D"),
-                                    "Humidade Máx (%)": final_h_max,
-                                    "Humidade Mín (%)": final_h_min,
-                                    "Intensidade Vento": dict_vento.get(dado.get("ff_class", 1), "N/D"),
-                                    "Direção Vento": dado.get("ff_class_2", "N/D"),
-                                    "Precipitação": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
-                                    "Risco de Incêndio": dict_risco.get(valor_risco_num, "N/D")
-                                })
-                        except ValueError:
-                            pass
-    except Exception as e:
-        print(f"Erro a processar {nome_concelho}: {e}")
-
-driver.quit()
-
-print("📊 A preparar os ficheiros locais...")
-df = pd.DataFrame(dados_finais)
-df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
-df = df.dropna(subset=['Dia do Mês'])
-df = df.sort_values(by=['Dia do Mês', 'Concelho'])
-
-colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
-for col in colunas_num:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
-
-df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
-
-# Gera o CSV localmente
-nome_csv = "Painel_Mestre_IPMA.csv"
-df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
-
-# Gera o XLSX localmente
-nome_xlsx = "Painel_Mestre_IPMA.xlsx"
-df.to_excel(nome_xlsx, index=False)
-
-print(f"🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")import pandas as pd
+    caixa_distrito.select_by_visible_text("Viana do Casteimport pandas as pd
 import time
 from datetime import datetime
 from selenium import webdriver
@@ -280,7 +179,7 @@ for col in colunas_num:
 
 df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
 
-# Gera o CSV localmente
+# Gera o CSV localmente (Com utf-8-sig para os acentos ficarem perfeitos no Excel)
 nome_csv = "Painel_Mestre_IPMA.csv"
 df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 
@@ -288,4 +187,4 @@ df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 nome_xlsx = "Painel_Mestre_IPMA.xlsx"
 df.to_excel(nome_xlsx, index=False)
 
-print(f"🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
+print("🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
