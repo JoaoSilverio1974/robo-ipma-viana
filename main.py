@@ -36,50 +36,7 @@ dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
 dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
-caixa_distrito = None
-for caixa in driver.find_elements(By.TAG_NAME, "select"):
-    if "Viana do Castelo" in caixa.text:
-        caixa_distrito = Select(caixa)
-        break
-if caixa_distrito:
-    caixa_distrito.select_by_visible_text("Viana do Casteimport pandas as pd
-import time
-from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from webdriver_manager.chrome import ChromeDriverManager
-
-print("🤖 A iniciar o motor do Robô no GitHub Actions...")
-
-# --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
-chrome_options = Options()
-chrome_options.add_argument("--headless") # Corre de forma invisível no GitHub
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
-
-url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
-print(f"🌍 A entrar no IPMA: {url}")
-driver.get(url)
-time.sleep(5)
-
-dados_finais = []
-concelhos_dico = {
-    "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
-    "1604": "Monção", "1605": "Paredes de Coura", "1606": "Ponte da Barca",
-    "1607": "Ponte de Lima", "1608": "Valença", "1609": "Viana do Castelo",
-    "1610": "Vila Nova de Cerveira"
-}
-
-dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
-dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
-dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
-
+# Selecionar Distrito
 caixa_distrito = None
 for caixa in driver.find_elements(By.TAG_NAME, "select"):
     if "Viana do Castelo" in caixa.text:
@@ -169,22 +126,28 @@ driver.quit()
 
 print("📊 A preparar os ficheiros locais...")
 df = pd.DataFrame(dados_finais)
-df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
-df = df.dropna(subset=['Dia do Mês'])
-df = df.sort_values(by=['Dia do Mês', 'Concelho'])
 
-colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
-for col in colunas_num:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
+# Adicionada uma proteção caso o site não devolva dados
+if not df.empty:
+    df['Dia do Mês'] = pd.to_datetime(df['Dia do Mês'])
+    df = df.dropna(subset=['Dia do Mês'])
+    df = df.sort_values(by=['Dia do Mês', 'Concelho'])
 
-df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
+    colunas_num = ["Temp. Máx (ºC)", "Temp. Mín (ºC)", "Humidade Máx (%)", "Humidade Mín (%)"]
+    for col in colunas_num:
+        if col in df.columns:
+            df[col] = pd.to_numeric(df[col], errors='coerce')
 
-# Gera o CSV localmente (Com utf-8-sig para os acentos ficarem perfeitos no Excel)
-nome_csv = "Painel_Mestre_IPMA.csv"
-df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
+    df['Dia do Mês'] = df['Dia do Mês'].dt.strftime('%Y-%m-%d')
 
-# Gera o XLSX localmente
-nome_xlsx = "Painel_Mestre_IPMA.xlsx"
-df.to_excel(nome_xlsx, index=False)
+    # Gera o CSV localmente (Com utf-8-sig para os acentos ficarem perfeitos no Excel)
+    nome_csv = "Painel_Mestre_IPMA.csv"
+    df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 
-print("🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
+    # Gera o XLSX localmente
+    nome_xlsx = "Painel_Mestre_IPMA.xlsx"
+    df.to_excel(nome_xlsx, index=False)
+
+    print("🎉 SUCESSO! O GitHub vai agora guardar estes ficheiros.")
+else:
+    print("⚠️ Aviso: Nenhum dado foi extraído.")
