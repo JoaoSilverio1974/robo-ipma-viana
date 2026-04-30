@@ -39,7 +39,7 @@ jobs:
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
           # 2. Adiciona os ficheiros acabados de gerar
-          git add Painel_Mestre_IPMA.csv Painel_Mestre_IPMA.xlsx
+          git add Painel_Mestre_IPMA.csv Painel_Mestre_IPMA.xlsx log_execucao.csv
           git commit -m "🤖 Atualização Automática: Dados IPMA" || echo "Sem alterações para gravar"
           
           # 3. Tenta enviar para o GitHub. Se o Excel colidir, usamos a tática de esmagamento automático!
