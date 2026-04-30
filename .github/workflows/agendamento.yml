@@ -34,18 +34,17 @@ jobs:
 
       - name: Forçar Atualização e Gravar Ficheiros
         run: |
-          # 1. Configura quem é o "robô" que está a gravar
+          # 1. Configura quem é o "robô"
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           
-          # 2. Adiciona os ficheiros gerados à lista
+          # 2. Adiciona os ficheiros acabados de gerar
           git add Painel_Mestre_IPMA.csv Painel_Mestre_IPMA.xlsx
-          
-          # 3. Regista as alterações (apenas se houver diferenças)
           git commit -m "🤖 Atualização Automática: Dados IPMA" || echo "Sem alterações para gravar"
           
-          # 4. Puxa as tuas alterações manuais e coloca as do robô por cima (resolve o erro)
-          git pull --rebase origin main
-          
-          # 5. Envia finalmente tudo para o GitHub
-          git push origin main
+          # 3. Tenta enviar para o GitHub. Se o Excel colidir, usamos a tática de esmagamento automático!
+          git push origin main || {
+            echo "A tentar resolver o conflito de Excel..."
+            git pull origin main --no-rebase -X ours
+            git push origin main
+          }
