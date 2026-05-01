@@ -1,4 +1,4 @@
-Nname: Robô IPMA - 10 Minutos
+name: Robô IPMA - 10 Minutos
 
 on:
   push:
