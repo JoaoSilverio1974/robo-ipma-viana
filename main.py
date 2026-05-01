@@ -164,19 +164,18 @@ else:
 # ==========================================
 # REGISTO DE HORA (LIVRO DE PONTO DO ROBÔ)
 # ==========================================
-import os
+import zoneinfo
 
-# Capta a hora exata do servidor
-agora = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+# 1. Capta a hora exata no fuso horário de Portugal (Lisboa)
+fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
+agora = datetime.now(fuso_pt).strftime("%d/%m/%Y %H:%M:%S")
+
 log_file = "log_execucao.csv"
 
-# Se o ficheiro não existir, cria-o e faz o cabeçalho
-if not os.path.exists(log_file):
-    with open(log_file, "w", encoding="utf-8") as f:
-        f.write("Data_Hora_Execucao\n")
-
-# Adiciona a nova hora na linha de baixo (sem apagar as antigas)
-with open(log_file, "a", encoding="utf-8") as f:
+# 2. Abre o ficheiro em modo "w" (write/escrever). 
+# Isto apaga tudo o que lá estava e escreve apenas a hora mais recente.
+with open(log_file, "w", encoding="utf-8") as f:
+    f.write("Ultima_Atualizacao\n")
     f.write(f"{agora}\n")
 
-print(f"🕒 Registo de hora guardado no livro de ponto: {agora}")
+print(f"🕒 Registo de hora atualizado com sucesso: {agora} (Hora PT)")
