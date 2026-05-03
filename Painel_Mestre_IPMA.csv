@@ -1,81 +1,91 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,Dia
-Arcos de Valdevez,18.9,9.3,1.0,0.606,Fraco,NW,Chuva Moderada,N/D,03/05/2026
-Caminha,16.5,11.5,0.956,0.705,Fraco,NW,Chuva Moderada,N/D,03/05/2026
-Melgaço,17.8,9.1,1.0,0.648,Fraco,W,Chuva Moderada,N/D,03/05/2026
-Monção,19.4,10.3,1.0,0.607,Fraco,W,Chuva Moderada,N/D,03/05/2026
-Paredes de Coura,16.6,8.0,0.99,0.633,Fraco,W,Chuva Fraca,N/D,03/05/2026
-Ponte da Barca,19.0,9.4,1.0,0.607,Fraco,NW,Chuva Moderada,N/D,03/05/2026
-Ponte de Lima,18.7,9.1,1.0,0.593,Fraco,NW,Chuva Fraca,N/D,03/05/2026
-Valença,19.0,10.0,0.987,0.636,Fraco,W,Chuva Fraca,N/D,03/05/2026
-Viana do Castelo,17.0,10.1,1.0,0.67,Moderado,NW,Chuva Moderada,N/D,03/05/2026
-Vila Nova de Cerveira,18.5,9.2,0.987,0.69,Fraco,W,Chuva Fraca,N/D,03/05/2026
-Arcos de Valdevez,17.7,8.6,0.987,0.608,Fraco,NW,Chuva Fraca,N/D,04/05/2026
-Caminha,15.7,9.3,0.985,0.69,Moderado,NW,Sem Chuva,N/D,04/05/2026
-Melgaço,16.1,8.7,1.0,0.677,Fraco,W,Chuva Moderada,N/D,04/05/2026
-Monção,17.7,9.2,0.9940000000000001,0.6509999999999999,Fraco,W,Chuva Moderada,N/D,04/05/2026
-Paredes de Coura,14.8,5.8,0.995,0.6659999999999999,Fraco,W,Chuva Fraca,N/D,04/05/2026
-Ponte da Barca,17.8,8.7,0.987,0.61,Fraco,NW,Chuva Fraca,N/D,04/05/2026
-Ponte de Lima,17.3,7.4,1.0,0.647,Fraco,NW,Chuva Fraca,N/D,04/05/2026
-Valença,17.5,7.7,0.995,0.65,Fraco,W,Chuva Moderada,N/D,04/05/2026
-Viana do Castelo,16.2,8.1,0.981,0.6729999999999999,Moderado,NW,Chuva Fraca,N/D,04/05/2026
-Vila Nova de Cerveira,17.0,6.8,0.9940000000000001,0.6890000000000001,Moderado,W,Chuva Fraca,N/D,04/05/2026
-Arcos de Valdevez,18.2,8.6,1.0,0.614,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Caminha,16.4,10.0,0.9229999999999999,0.7120000000000001,Moderado,NW,Chuva Fraca,N/D,05/05/2026
-Melgaço,17.3,9.2,1.0,0.6409999999999999,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Monção,18.9,9.5,0.993,0.606,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Paredes de Coura,16.0,7.5,1.0,0.682,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Ponte da Barca,18.3,8.8,1.0,0.614,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Ponte de Lima,18.3,8.7,1.0,0.63,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Valença,18.3,9.0,1.0,0.657,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Viana do Castelo,16.4,9.0,0.9740000000000001,0.6709999999999999,Moderado,NW,Chuva Fraca,N/D,05/05/2026
-Vila Nova de Cerveira,17.9,8.3,1.0,0.643,Fraco,NW,Chuva Fraca,N/D,05/05/2026
-Arcos de Valdevez,20.7,7.6,0.9470000000000001,0.46799999999999997,Fraco,N,Sem Chuva,N/D,06/05/2026
-Caminha,18.0,9.0,0.948,0.617,Moderado,N,Sem Chuva,N/D,06/05/2026
-Melgaço,20.4,7.8,0.987,0.446,Fraco,E,Sem Chuva,N/D,06/05/2026
-Monção,21.7,8.5,0.903,0.494,Fraco,NE,Sem Chuva,N/D,06/05/2026
-Paredes de Coura,18.3,5.7,0.986,0.509,Fraco,N,Sem Chuva,N/D,06/05/2026
-Ponte da Barca,20.8,7.8,0.9540000000000001,0.46799999999999997,Fraco,N,Sem Chuva,N/D,06/05/2026
-Ponte de Lima,20.9,6.9,1.0,0.539,Fraco,N,Sem Chuva,N/D,06/05/2026
-Valença,20.5,7.3,1.0,0.518,Fraco,N,Sem Chuva,N/D,06/05/2026
-Viana do Castelo,19.2,7.2,0.941,0.5329999999999999,Moderado,NW,Sem Chuva,N/D,06/05/2026
-Vila Nova de Cerveira,20.1,6.9,1.0,0.55,Fraco,N,Chuva Fraca,N/D,06/05/2026
-Arcos de Valdevez,21.8,8.4,0.902,0.535,Fraco,NE,Chuva Moderada,N/D,07/05/2026
-Caminha,18.4,9.3,0.884,0.6679999999999999,Fraco,NW,Sem Chuva,N/D,07/05/2026
-Melgaço,21.0,8.0,0.971,0.5760000000000001,Fraco,E,Chuva Forte,N/D,07/05/2026
-Monção,22.3,8.5,0.903,0.565,Fraco,E,Chuva Moderada,N/D,07/05/2026
-Paredes de Coura,19.6,5.5,0.9740000000000001,0.5720000000000001,Fraco,NE,Chuva Moderada,N/D,07/05/2026
-Ponte da Barca,21.9,8.5,0.9009999999999999,0.5379999999999999,Fraco,NE,Chuva Moderada,N/D,07/05/2026
-Ponte de Lima,22.1,7.2,0.943,0.53,Fraco,SW,Chuva Moderada,N/D,07/05/2026
-Valença,22.1,7.0,1.0,0.578,Fraco,NE,Chuva Moderada,N/D,07/05/2026
-Viana do Castelo,20.0,8.0,0.943,0.541,Fraco,W,Sem Chuva,N/D,07/05/2026
-Vila Nova de Cerveira,21.4,6.4,1.0,0.586,Fraco,NE,Chuva Moderada,N/D,07/05/2026
-Arcos de Valdevez,19.3,9.4,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
-Caminha,17.1,10.3,,,Fraco,S,Chuva Fraca,N/D,08/05/2026
-Melgaço,18.8,9.2,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
-Monção,20.0,9.7,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
-Paredes de Coura,17.1,7.2,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
-Ponte da Barca,19.4,9.6,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
-Ponte de Lima,19.4,8.7,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
-Valença,19.7,8.6,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
-Viana do Castelo,17.6,9.4,,,Fraco,SW,Chuva Fraca,N/D,08/05/2026
-Vila Nova de Cerveira,19.2,7.6,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
-Arcos de Valdevez,18.2,8.8,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Caminha,16.6,10.0,,,Moderado,NW,Chuva Moderada,N/D,09/05/2026
-Melgaço,17.6,8.5,,,Fraco,W,Chuva Moderada,N/D,09/05/2026
-Monção,19.1,9.2,,,Fraco,W,Chuva Moderada,N/D,09/05/2026
-Paredes de Coura,16.1,6.7,,,Fraco,N,Chuva Moderada,N/D,09/05/2026
-Ponte da Barca,18.3,9.0,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Ponte de Lima,18.4,8.2,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Valença,18.6,8.3,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Viana do Castelo,17.1,8.9,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Vila Nova de Cerveira,18.3,7.5,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
-Arcos de Valdevez,17.8,8.5,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
-Caminha,16.3,9.8,,,Moderado,N,Chuva Moderada,N/D,10/05/2026
-Melgaço,17.2,8.1,,,Fraco,E,Chuva Moderada,N/D,10/05/2026
-Monção,18.6,8.7,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
-Paredes de Coura,15.5,6.3,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
-Ponte da Barca,17.9,8.7,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
-Ponte de Lima,17.8,7.8,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
-Valença,18.1,7.9,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
-Viana do Castelo,16.8,8.7,,,Moderado,NW,Chuva Moderada,N/D,10/05/2026
-Vila Nova de Cerveira,17.7,7.1,,,Fraco,N,Chuva Moderada,N/D,10/05/2026
+Arcos de Valdevez,19.0,9.7,0.986,0.605,Fraco,NW,Chuva Moderada,N/D,03/05/2026
+Caminha,16.6,11.5,0.956,0.721,Moderado,NW,Chuva Fraca,N/D,03/05/2026
+Melgaço,17.4,9.2,0.981,0.677,Fraco,W,Chuva Fraca,N/D,03/05/2026
+Monção,19.0,10.3,1.0,0.62,Fraco,W,Chuva Moderada,N/D,03/05/2026
+Paredes de Coura,16.3,8.0,0.986,0.6509999999999999,Fraco,W,Chuva Moderada,N/D,03/05/2026
+Ponte da Barca,19.1,9.8,0.986,0.607,Fraco,NW,Chuva Moderada,N/D,03/05/2026
+Ponte de Lima,18.7,9.1,1.0,0.631,Fraco,NW,Chuva Fraca,N/D,03/05/2026
+Valença,18.8,9.8,0.9890000000000001,0.652,Fraco,W,Chuva Moderada,N/D,03/05/2026
+Viana do Castelo,16.9,10.0,0.988,0.688,Moderado,NW,Chuva Fraca,N/D,03/05/2026
+Vila Nova de Cerveira,18.3,8.7,0.988,0.696,Fraco,NW,Chuva Fraca,N/D,03/05/2026
+Arcos de Valdevez,17.0,7.1,0.986,0.652,Fraco,NW,Chuva Moderada,N/D,04/05/2026
+Caminha,15.6,9.6,0.973,0.7190000000000001,Moderado,NW,Chuva Fraca,N/D,04/05/2026
+Melgaço,16.0,8.3,0.9940000000000001,0.6809999999999999,Fraco,W,Chuva Moderada,N/D,04/05/2026
+Monção,17.1,8.8,0.975,0.638,Fraco,W,Chuva Moderada,N/D,04/05/2026
+Paredes de Coura,14.7,5.9,0.986,0.674,Fraco,W,Chuva Moderada,N/D,04/05/2026
+Ponte da Barca,17.2,7.3,0.986,0.653,Fraco,NW,Chuva Moderada,N/D,04/05/2026
+Ponte de Lima,16.8,7.4,1.0,0.682,Fraco,NW,Chuva Moderada,N/D,04/05/2026
+Valença,17.4,7.7,0.9890000000000001,0.6890000000000001,Fraco,W,Chuva Moderada,N/D,04/05/2026
+Viana do Castelo,15.6,8.2,0.9740000000000001,0.713,Moderado,NW,Chuva Fraca,N/D,04/05/2026
+Vila Nova de Cerveira,17.3,6.9,0.997,0.696,Fraco,W,Chuva Moderada,N/D,04/05/2026
+Arcos de Valdevez,17.4,8.3,0.987,0.6629999999999999,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Caminha,16.3,10.2,0.9109999999999999,0.725,Moderado,NW,Chuva Fraca,N/D,05/05/2026
+Melgaço,16.3,9.0,0.973,0.721,Fraco,W,Chuva Moderada,N/D,05/05/2026
+Monção,18.0,9.6,0.961,0.643,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Paredes de Coura,15.1,6.9,1.0,0.68,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Ponte da Barca,17.6,8.4,0.98,0.6629999999999999,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Ponte de Lima,17.6,8.5,1.0,0.672,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Valença,17.6,9.2,1.0,0.6629999999999999,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Viana do Castelo,16.1,8.2,0.973,0.679,Moderado,NW,Chuva Fraca,N/D,05/05/2026
+Vila Nova de Cerveira,17.4,8.1,1.0,0.685,Fraco,NW,Chuva Fraca,N/D,05/05/2026
+Arcos de Valdevez,19.5,7.4,0.973,0.523,Fraco,NW,Sem Chuva,N/D,06/05/2026
+Caminha,16.8,8.9,0.9470000000000001,0.6709999999999999,Moderado,NW,Sem Chuva,N/D,06/05/2026
+Melgaço,18.7,7.6,0.987,0.517,Fraco,E,Sem Chuva,N/D,06/05/2026
+Monção,20.0,8.3,0.909,0.493,Fraco,NW,Sem Chuva,N/D,06/05/2026
+Paredes de Coura,16.9,5.9,0.986,0.515,Fraco,NW,Chuva Fraca,N/D,06/05/2026
+Ponte da Barca,19.7,7.5,0.973,0.527,Fraco,NW,Sem Chuva,N/D,06/05/2026
+Ponte de Lima,19.3,6.8,0.993,0.506,Fraco,N,Sem Chuva,N/D,06/05/2026
+Valença,19.0,7.6,1.0,0.5489999999999999,Fraco,NW,Chuva Fraca,N/D,06/05/2026
+Viana do Castelo,17.8,6.7,0.966,0.56,Moderado,NW,Sem Chuva,N/D,06/05/2026
+Vila Nova de Cerveira,18.4,7.0,1.0,0.603,Fraco,NW,Chuva Fraca,N/D,06/05/2026
+Arcos de Valdevez,20.1,7.8,0.956,0.585,Fraco,SW,Chuva Fraca,N/D,07/05/2026
+Caminha,17.5,9.1,0.946,0.648,Fraco,W,Sem Chuva,N/D,07/05/2026
+Melgaço,19.5,8.0,0.971,0.594,Fraco,W,Chuva Fraca,N/D,07/05/2026
+Monção,20.7,8.2,0.895,0.5379999999999999,Fraco,W,Chuva Fraca,N/D,07/05/2026
+Paredes de Coura,17.9,5.5,1.0,0.599,Fraco,SW,Chuva Fraca,N/D,07/05/2026
+Ponte da Barca,20.3,8.0,0.966,0.583,Fraco,SW,Chuva Fraca,N/D,07/05/2026
+Ponte de Lima,20.2,7.2,1.0,0.568,Fraco,W,Chuva Fraca,N/D,07/05/2026
+Valença,20.5,7.3,1.0,0.5760000000000001,Fraco,SW,Chuva Fraca,N/D,07/05/2026
+Viana do Castelo,17.9,7.4,0.986,0.639,Fraco,W,Sem Chuva,N/D,07/05/2026
+Vila Nova de Cerveira,20.0,6.4,1.0,0.586,Fraco,W,Chuva Fraca,N/D,07/05/2026
+Arcos de Valdevez,17.6,9.1,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
+Caminha,16.6,10.3,,,Moderado,SW,Chuva Moderada,N/D,08/05/2026
+Melgaço,17.3,9.2,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
+Monção,18.5,9.7,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
+Paredes de Coura,15.6,7.3,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
+Ponte da Barca,17.8,9.2,,,Fraco,S,Chuva Moderada,N/D,08/05/2026
+Ponte de Lima,17.8,8.9,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
+Valença,18.3,9.0,,,Moderado,SW,Chuva Moderada,N/D,08/05/2026
+Viana do Castelo,16.3,9.1,,,Fraco,SW,Chuva Moderada,N/D,08/05/2026
+Vila Nova de Cerveira,18.1,7.9,,,Moderado,SW,Chuva Moderada,N/D,08/05/2026
+Arcos de Valdevez,17.0,8.3,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Caminha,16.1,9.9,,,Moderado,N,Chuva Moderada,N/D,09/05/2026
+Melgaço,16.5,8.4,,,Fraco,W,Chuva Moderada,N/D,09/05/2026
+Monção,17.9,9.0,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Paredes de Coura,14.9,6.6,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Ponte da Barca,17.2,8.5,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Ponte de Lima,17.2,8.2,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Valença,17.5,8.4,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Viana do Castelo,15.9,8.6,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Vila Nova de Cerveira,17.4,7.4,,,Fraco,NW,Chuva Moderada,N/D,09/05/2026
+Arcos de Valdevez,16.7,7.9,,,Fraco,W,Chuva Moderada,N/D,10/05/2026
+Caminha,15.9,9.5,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
+Melgaço,16.1,7.9,,,Fraco,W,Chuva Moderada,N/D,10/05/2026
+Monção,17.4,8.5,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
+Paredes de Coura,14.5,6.2,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
+Ponte da Barca,16.9,8.1,,,Fraco,W,Chuva Moderada,N/D,10/05/2026
+Ponte de Lima,16.8,7.8,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
+Valença,17.2,8.0,,,Fraco,NW,Chuva Moderada,N/D,10/05/2026
+Viana do Castelo,15.7,8.2,,,Moderado,NW,Chuva Moderada,N/D,10/05/2026
+Vila Nova de Cerveira,17.2,7.1,,,Fraco,W,Chuva Moderada,N/D,10/05/2026
+Arcos de Valdevez,18.1,7.8,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Caminha,16.8,9.3,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Melgaço,17.5,7.8,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Monção,18.8,8.4,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Paredes de Coura,16.0,6.1,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Ponte da Barca,18.2,8.0,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Ponte de Lima,18.4,7.6,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Valença,18.7,7.9,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Viana do Castelo,16.9,7.9,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
+Vila Nova de Cerveira,18.5,6.9,,,Fraco,SW,Chuva Moderada,N/D,11/05/2026
