@@ -1,81 +1,91 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,Dia
-Arcos de Valdevez,21.8,8.7,0.924,0.486,Fraco,SW,Sem Chuva,N/D,05/06/2026
-Caminha,18.2,11.4,0.8540000000000001,0.593,Moderado,W,Sem Chuva,N/D,05/06/2026
-Melgaço,20.1,8.3,0.958,0.565,Fraco,W,Sem Chuva,N/D,05/06/2026
-Monção,21.2,8.9,0.893,0.517,Fraco,W,Sem Chuva,N/D,05/06/2026
-Paredes de Coura,18.7,6.8,0.9540000000000001,0.5,Fraco,W,Sem Chuva,N/D,05/06/2026
-Ponte da Barca,21.9,8.8,0.924,0.48700000000000004,Fraco,SW,Sem Chuva,N/D,05/06/2026
-Ponte de Lima,21.1,8.3,0.997,0.519,Fraco,W,Sem Chuva,N/D,05/06/2026
-Valença,20.9,8.8,0.96,0.537,Fraco,SW,Sem Chuva,N/D,05/06/2026
-Viana do Castelo,18.8,9.7,0.879,0.54,Moderado,W,Sem Chuva,N/D,05/06/2026
-Vila Nova de Cerveira,20.3,8.2,0.9309999999999999,0.564,Fraco,W,Sem Chuva,N/D,05/06/2026
-Arcos de Valdevez,24.0,13.1,0.961,0.5660000000000001,Fraco,NW,Chuva Fraca,N/D,06/06/2026
-Caminha,20.3,13.6,0.938,0.636,Moderado,N,Chuva Fraca,N/D,06/06/2026
-Melgaço,23.1,13.4,1.0,0.595,Fraco,W,Chuva Fraca,N/D,06/06/2026
-Monção,24.3,13.6,1.0,0.529,Fraco,NW,Chuva Fraca,N/D,06/06/2026
-Paredes de Coura,21.2,11.3,0.972,0.5579999999999999,Fraco,N,Chuva Fraca,N/D,06/06/2026
-Ponte da Barca,24.1,13.2,0.961,0.5670000000000001,Fraco,NW,Chuva Fraca,N/D,06/06/2026
-Ponte de Lima,23.7,12.5,1.0,0.561,Fraco,N,Chuva Fraca,N/D,06/06/2026
-Valença,23.5,13.4,0.956,0.564,Fraco,N,Chuva Fraca,N/D,06/06/2026
-Viana do Castelo,21.3,12.5,0.9940000000000001,0.624,Moderado,NW,Chuva Moderada,N/D,06/06/2026
-Vila Nova de Cerveira,23.1,12.2,0.9670000000000001,0.6,Fraco,N,Chuva Fraca,N/D,06/06/2026
-Arcos de Valdevez,27.6,11.4,0.9059999999999999,0.506,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Caminha,20.3,12.3,0.9179999999999999,0.715,Moderado,NW,Sem Chuva,N/D,07/06/2026
-Melgaço,25.7,10.9,0.955,0.547,Fraco,W,Sem Chuva,N/D,07/06/2026
-Monção,26.7,11.6,0.87,0.5429999999999999,Fraco,W,Sem Chuva,N/D,07/06/2026
-Paredes de Coura,23.6,8.7,0.9670000000000001,0.542,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Ponte da Barca,27.7,11.6,0.9059999999999999,0.51,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Ponte de Lima,26.3,10.1,0.9690000000000001,0.544,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Valença,25.1,10.2,0.983,0.57,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Viana do Castelo,21.6,10.1,0.961,0.6629999999999999,Moderado,NW,Sem Chuva,N/D,07/06/2026
-Vila Nova de Cerveira,24.2,9.2,1.0,0.593,Fraco,NW,Sem Chuva,N/D,07/06/2026
-Arcos de Valdevez,25.5,12.5,1.0,0.57,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Caminha,20.6,12.2,0.993,0.7090000000000001,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Melgaço,23.8,12.5,1.0,0.613,Fraco,W,Sem Chuva,N/D,08/06/2026
-Monção,25.1,11.9,1.0,0.61,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Paredes de Coura,22.3,9.7,1.0,0.607,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Ponte da Barca,25.6,12.6,1.0,0.574,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Ponte de Lima,24.9,11.0,1.0,0.594,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Valença,24.7,11.5,1.0,0.613,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Viana do Castelo,21.2,11.4,1.0,0.6829999999999999,Moderado,NW,Sem Chuva,N/D,08/06/2026
-Vila Nova de Cerveira,24.2,10.2,1.0,0.618,Fraco,NW,Sem Chuva,N/D,08/06/2026
-Arcos de Valdevez,26.1,12.1,0.966,0.43200000000000005,Moderado,N,Sem Chuva,N/D,09/06/2026
-Caminha,20.9,12.7,0.965,0.5489999999999999,Moderado,N,Sem Chuva,N/D,09/06/2026
-Melgaço,25.3,11.8,0.948,0.382,Fraco,NE,Sem Chuva,N/D,09/06/2026
-Monção,26.5,12.4,0.943,0.41700000000000004,Fraco,NE,Sem Chuva,N/D,09/06/2026
-Paredes de Coura,23.1,9.7,1.0,0.431,Moderado,N,Sem Chuva,N/D,09/06/2026
-Ponte da Barca,26.2,12.2,0.966,0.435,Moderado,N,Sem Chuva,N/D,09/06/2026
-Ponte de Lima,25.8,11.1,1.0,0.435,Moderado,N,Sem Chuva,N/D,09/06/2026
-Valença,25.4,11.5,0.9990000000000001,0.43700000000000006,Moderado,N,Sem Chuva,N/D,09/06/2026
-Viana do Castelo,23.0,11.4,0.9990000000000001,0.525,Moderado,N,Sem Chuva,N/D,09/06/2026
-Vila Nova de Cerveira,25.0,10.4,1.0,0.42100000000000004,Moderado,N,Sem Chuva,N/D,09/06/2026
-Arcos de Valdevez,27.1,11.8,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Caminha,20.6,12.4,,,Moderado,N,Sem Chuva,N/D,10/06/2026
-Melgaço,25.8,11.4,,,Fraco,E,Sem Chuva,N/D,10/06/2026
-Monção,26.6,11.5,,,Moderado,NW,Sem Chuva,N/D,10/06/2026
-Paredes de Coura,23.8,9.1,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Ponte da Barca,27.2,11.9,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Ponte de Lima,26.5,10.7,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Valença,25.9,10.8,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Viana do Castelo,22.6,10.8,,,Moderado,NW,Sem Chuva,N/D,10/06/2026
-Vila Nova de Cerveira,25.2,9.9,,,Fraco,N,Sem Chuva,N/D,10/06/2026
-Arcos de Valdevez,27.5,13.1,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
-Caminha,21.7,13.5,,,Moderado,N,Sem Chuva,N/D,11/06/2026
-Melgaço,26.6,13.1,,,Fraco,E,Sem Chuva,N/D,11/06/2026
-Monção,27.6,13.1,,,Fraco,W,Sem Chuva,N/D,11/06/2026
-Paredes de Coura,24.5,10.7,,,Fraco,N,Sem Chuva,N/D,11/06/2026
-Ponte da Barca,27.6,13.2,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
-Ponte de Lima,27.0,12.2,,,Fraco,N,Sem Chuva,N/D,11/06/2026
-Valença,26.8,12.5,,,Fraco,N,Sem Chuva,N/D,11/06/2026
-Viana do Castelo,23.3,11.9,,,Moderado,NW,Sem Chuva,N/D,11/06/2026
-Vila Nova de Cerveira,26.1,11.5,,,Fraco,N,Sem Chuva,N/D,11/06/2026
-Arcos de Valdevez,28.1,14.2,,,Fraco,N,Sem Chuva,N/D,12/06/2026
-Caminha,22.6,14.3,,,Moderado,N,Sem Chuva,N/D,12/06/2026
-Melgaço,27.2,14.0,,,Fraco,W,Sem Chuva,N/D,12/06/2026
-Monção,28.3,14.3,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
-Paredes de Coura,25.3,11.9,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
-Ponte da Barca,28.2,14.3,,,Fraco,N,Sem Chuva,N/D,12/06/2026
-Ponte de Lima,27.9,13.4,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
-Valença,27.6,13.6,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
-Viana do Castelo,24.4,12.9,,,Moderado,NW,Sem Chuva,N/D,12/06/2026
-Vila Nova de Cerveira,27.1,12.5,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Arcos de Valdevez,21.0,9.1,0.9279999999999999,0.48700000000000004,Fraco,SW,Sem Chuva,N/D,05/06/2026
+Caminha,17.8,11.5,0.862,0.5720000000000001,Moderado,N,Sem Chuva,N/D,05/06/2026
+Melgaço,20.0,8.7,0.951,0.5379999999999999,Fraco,W,Sem Chuva,N/D,05/06/2026
+Monção,21.0,9.5,0.9,0.502,Moderado,W,Sem Chuva,N/D,05/06/2026
+Paredes de Coura,18.0,7.0,0.9540000000000001,0.515,Fraco,SW,Sem Chuva,N/D,05/06/2026
+Ponte da Barca,21.1,9.3,0.9279999999999999,0.488,Fraco,SW,Sem Chuva,N/D,05/06/2026
+Ponte de Lima,19.6,8.3,0.995,0.529,Fraco,W,Sem Chuva,N/D,05/06/2026
+Valença,20.4,9.1,0.963,0.523,Fraco,SW,Sem Chuva,N/D,05/06/2026
+Viana do Castelo,18.2,9.6,0.887,0.531,Fraco,W,Sem Chuva,N/D,05/06/2026
+Vila Nova de Cerveira,19.6,8.7,0.941,0.56,Fraco,SW,Sem Chuva,N/D,05/06/2026
+Arcos de Valdevez,24.4,13.1,0.953,0.5660000000000001,Fraco,NW,Chuva Fraca,N/D,06/06/2026
+Caminha,20.1,13.6,0.9490000000000001,0.669,Moderado,N,Sem Chuva,N/D,06/06/2026
+Melgaço,23.7,13.6,0.991,0.596,Fraco,W,Chuva Fraca,N/D,06/06/2026
+Monção,24.5,13.8,0.985,0.5479999999999999,Moderado,NW,Chuva Fraca,N/D,06/06/2026
+Paredes de Coura,21.8,11.6,0.955,0.535,Fraco,N,Sem Chuva,N/D,06/06/2026
+Ponte da Barca,24.5,13.3,0.953,0.568,Fraco,NW,Chuva Fraca,N/D,06/06/2026
+Ponte de Lima,23.9,12.6,1.0,0.528,Fraco,N,Chuva Fraca,N/D,06/06/2026
+Valença,24.2,14.0,0.924,0.551,Fraco,N,Chuva Fraca,N/D,06/06/2026
+Viana do Castelo,20.9,12.7,1.0,0.653,Moderado,NW,Sem Chuva,N/D,06/06/2026
+Vila Nova de Cerveira,23.2,12.6,0.9329999999999999,0.598,Fraco,N,Chuva Fraca,N/D,06/06/2026
+Arcos de Valdevez,27.1,12.1,0.907,0.519,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Caminha,20.1,12.9,0.937,0.742,Moderado,NW,Sem Chuva,N/D,07/06/2026
+Melgaço,25.1,11.7,0.9490000000000001,0.5760000000000001,Fraco,W,Sem Chuva,N/D,07/06/2026
+Monção,25.9,11.8,0.883,0.5770000000000001,Fraco,W,Sem Chuva,N/D,07/06/2026
+Paredes de Coura,23.2,10.4,0.935,0.556,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Ponte da Barca,27.2,12.3,0.907,0.519,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Ponte de Lima,25.6,11.3,0.9740000000000001,0.561,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Valença,25.0,11.6,0.993,0.578,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Viana do Castelo,21.7,10.6,0.968,0.6970000000000001,Moderado,NW,Sem Chuva,N/D,07/06/2026
+Vila Nova de Cerveira,23.9,10.4,1.0,0.61,Fraco,NW,Sem Chuva,N/D,07/06/2026
+Arcos de Valdevez,25.9,12.6,0.987,0.531,Fraco,N,Sem Chuva,N/D,08/06/2026
+Caminha,20.4,12.8,0.924,0.696,Moderado,N,Sem Chuva,N/D,08/06/2026
+Melgaço,25.1,13.4,1.0,0.531,Fraco,NW,Sem Chuva,N/D,08/06/2026
+Monção,25.8,12.9,0.981,0.536,Fraco,NW,Sem Chuva,N/D,08/06/2026
+Paredes de Coura,22.8,9.6,1.0,0.5660000000000001,Fraco,N,Sem Chuva,N/D,08/06/2026
+Ponte da Barca,26.0,12.7,0.987,0.532,Fraco,N,Sem Chuva,N/D,08/06/2026
+Ponte de Lima,24.8,10.9,1.0,0.5710000000000001,Moderado,N,Sem Chuva,N/D,08/06/2026
+Valença,25.0,11.6,1.0,0.5660000000000001,Fraco,NW,Sem Chuva,N/D,08/06/2026
+Viana do Castelo,21.0,11.4,0.981,0.652,Moderado,NW,Sem Chuva,N/D,08/06/2026
+Vila Nova de Cerveira,24.0,10.6,1.0,0.5820000000000001,Fraco,N,Sem Chuva,N/D,08/06/2026
+Arcos de Valdevez,26.1,12.5,0.998,0.473,Moderado,N,Sem Chuva,N/D,09/06/2026
+Caminha,20.8,13.1,0.8959999999999999,0.584,Moderado,N,Sem Chuva,N/D,09/06/2026
+Melgaço,25.2,12.4,0.9059999999999999,0.42100000000000004,Fraco,NE,Sem Chuva,N/D,09/06/2026
+Monção,26.3,13.0,1.0,0.445,Moderado,NE,Sem Chuva,N/D,09/06/2026
+Paredes de Coura,23.1,10.5,0.934,0.43799999999999994,Moderado,N,Sem Chuva,N/D,09/06/2026
+Ponte da Barca,26.2,12.7,0.9990000000000001,0.479,Moderado,N,Sem Chuva,N/D,09/06/2026
+Ponte de Lima,25.2,11.6,0.991,0.452,Moderado,N,Sem Chuva,N/D,09/06/2026
+Valença,25.4,12.3,0.9390000000000001,0.433,Moderado,N,Sem Chuva,N/D,09/06/2026
+Viana do Castelo,23.0,12.0,0.9259999999999999,0.557,Moderado,NW,Sem Chuva,N/D,09/06/2026
+Vila Nova de Cerveira,24.6,11.3,0.976,0.436,Moderado,N,Sem Chuva,N/D,09/06/2026
+Arcos de Valdevez,27.6,11.7,,,Fraco,N,Sem Chuva,N/D,10/06/2026
+Caminha,21.6,12.6,,,Moderado,N,Sem Chuva,N/D,10/06/2026
+Melgaço,26.6,11.5,,,Moderado,NE,Sem Chuva,N/D,10/06/2026
+Monção,27.6,11.9,,,Fraco,NE,Sem Chuva,N/D,10/06/2026
+Paredes de Coura,24.6,9.7,,,Moderado,N,Sem Chuva,N/D,10/06/2026
+Ponte da Barca,27.7,11.9,,,Fraco,N,Sem Chuva,N/D,10/06/2026
+Ponte de Lima,26.7,10.8,,,Fraco,N,Sem Chuva,N/D,10/06/2026
+Valença,26.8,11.4,,,Moderado,NE,Sem Chuva,N/D,10/06/2026
+Viana do Castelo,23.9,11.2,,,Fraco,N,Sem Chuva,N/D,10/06/2026
+Vila Nova de Cerveira,25.9,10.5,,,Fraco,NE,Sem Chuva,N/D,10/06/2026
+Arcos de Valdevez,28.9,13.2,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Caminha,22.2,13.7,,,Moderado,N,Sem Chuva,N/D,11/06/2026
+Melgaço,27.9,13.2,,,Fraco,W,Sem Chuva,N/D,11/06/2026
+Monção,28.7,13.3,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Paredes de Coura,25.9,11.2,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Ponte da Barca,29.0,13.4,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Ponte de Lima,27.9,12.4,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Valença,28.1,12.8,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Viana do Castelo,24.5,12.4,,,Moderado,NW,Sem Chuva,N/D,11/06/2026
+Vila Nova de Cerveira,27.0,11.8,,,Fraco,NW,Sem Chuva,N/D,11/06/2026
+Arcos de Valdevez,29.2,14.2,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Caminha,22.9,14.5,,,Moderado,NW,Sem Chuva,N/D,12/06/2026
+Melgaço,28.2,14.0,,,Fraco,W,Sem Chuva,N/D,12/06/2026
+Monção,29.1,14.2,,,Moderado,NW,Sem Chuva,N/D,12/06/2026
+Paredes de Coura,26.2,11.9,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Ponte da Barca,29.3,14.4,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Ponte de Lima,28.2,13.2,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Valença,28.4,13.6,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Viana do Castelo,25.1,13.9,,,Moderado,NW,Sem Chuva,N/D,12/06/2026
+Vila Nova de Cerveira,27.4,12.8,,,Fraco,NW,Sem Chuva,N/D,12/06/2026
+Arcos de Valdevez,30.6,14.8,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Caminha,24.7,15.1,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Melgaço,29.6,14.9,,,Fraco,W,Sem Chuva,N/D,13/06/2026
+Monção,30.7,15.3,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Paredes de Coura,27.9,13.1,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Ponte da Barca,30.7,15.0,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Ponte de Lima,29.9,14.1,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Valença,30.3,14.8,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Viana do Castelo,27.2,14.4,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
+Vila Nova de Cerveira,29.6,13.8,,,Fraco,NW,Sem Chuva,N/D,13/06/2026
