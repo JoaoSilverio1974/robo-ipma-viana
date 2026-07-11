@@ -1,50 +1,6 @@
 import pandas as pd
 import time
 from datetime import datetime
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from webdriver_manager.chrome import ChromeDriverManager
-
-print("🤖 A iniciar o motor do Robô no GitHub Actions...")
-
-# --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
-
-url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
-print(f"🌍 A entrar no IPMA: {url}")
-driver.get(url)
-time.sleep(5)
-
-dados_finais = []
-concelhos_dico = {
-    "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
-    "1604": "Monção", "1605": "Paredes de Coura", "1606": "Ponte da Barca",
-    "1607": "Ponte de Lima", "1608": "Valença", "1609": "Viana do Castelo",
-    "1610": "Vila Nova de Cerveira"
-}
-
-dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
-dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
-dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
-
-caixa_distrito = None
-for caixa in driver.find_elements(By.TAG_NAME, "select"):
-    if "Viana do Castelo" in caixa.text:
-        caixa_distrito = Select(caixa)
-        break
-if caixa_distrito:
-    caixa_distrito.select_by_visible_text("Viana do Castelo")import pandas as pd
-import time
-from datetime import datetime
 import json
 import urllib.request
 from selenium import webdriver
@@ -53,6 +9,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from webdriver_manager.chrome import ChromeDriverManager
+import zoneinfo
 
 print("🤖 A iniciar o motor do Robô no GitHub Actions...")
 
@@ -108,7 +65,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
             req = urllib.request.Request(url_api, headers={'User-Agent': 'Mozilla/5.0 (Robo IPMA)'})
             with urllib.request.urlopen(req) as response:
                 dados_api = json.loads(response.read().decode())
-                # Criar um dicionário para cruzar facilmente as datas: {"2026-07-11": 1, ...}
+                # Criar um dicionário para cruzar facilmente as datas
                 for dia_prev in dados_api:
                     data_str = dia_prev.get("dataPrev")[:10] # Extrai apenas YYYY-MM-DD
                     id_wt = dia_prev.get("idWeatherType")
@@ -166,7 +123,6 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 if valor_risco_num is None and len(dados_risco) > idx:
                                     valor_risco_num = dados_risco[idx].get("rcm", dados_risco[idx].get("class"))
 
-                                # Cálculo da Humidade para Decimal (ex: 84.7 passa a 0.847)
                                 final_h_max = (h_max / 100) if h_max is not None else "N/D"
                                 final_h_min = (h_min / 100) if h_min is not None else "N/D"
 
@@ -174,7 +130,6 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 data_formatada = dado_full_date.strftime("%Y-%m-%d")
                                 id_tempo_final = mapa_id_tempo.get(data_formatada, "N/D")
 
-                                # Ordem e nomes EXATOS
                                 dados_finais.append({
                                     "Concelho": nome_concelho,
                                     "Temp_Max": dado.get("tt_max", "N/D"),
@@ -235,7 +190,6 @@ else:
 # ==========================================
 # REGISTO DE HORA (LIVRO DE PONTO DO ROBÔ)
 # ==========================================
-import zoneinfo
 
 # 1. Capta a hora exata no fuso horário de Portugal (Lisboa)
 fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
