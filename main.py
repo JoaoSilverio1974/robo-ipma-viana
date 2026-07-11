@@ -2,6 +2,7 @@ import pandas as pd
 import time
 from datetime import datetime
 import json
+import urllib.request
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -20,9 +21,6 @@ chrome_options.add_argument("--disable-dev-shm-usage")
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
-
-# ⚠️ NOVIDADE: Dar tempo ao navegador para extrair a API interna
-driver.set_script_timeout(10)
 
 url = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
 print(f"🌍 A entrar no IPMA: {url}")
@@ -58,44 +56,33 @@ for codigo_id, nome_concelho in concelhos_dico.items():
         print(f"A descarregar: {nome_concelho}...")
         
         # ========================================================
-        # 🌟 TÁTICA NINJA: USAR O SELENIUM PARA ROUBAR A API DO IPMA
+        # 🌟 LEITURA DIRETA E EXATA DA API DO IPMA
         # ========================================================
         global_id_local = f"1{codigo_id}00"
         mapa_id_tempo = {}
         
         try:
-            # Mandamos o JavaScript do navegador extrair os dados da API public-data
-            script_fetch = f"""
-                var callback = arguments[arguments.length - 1];
-                fetch('https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json')
-                    .then(r => r.ok ? r.json() : null)
-                    .then(data => callback(data))
-                    .catch(err => callback(null));
-            """
-            dados_api = driver.execute_async_script(script_fetch)
-            
-            if dados_api:
-                # O IPMA pode retornar uma lista ou um dicionário
-                lista_dias = dados_api if isinstance(dados_api, list) else dados_api.get("data", [])
+            url_api = f"https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json"
+            # Cabeçalho para o IPMA aceitar o pedido sem problemas
+            req = urllib.request.Request(url_api, headers={'User-Agent': 'Mozilla/5.0'})
+            with urllib.request.urlopen(req) as response:
+                dados_api = json.loads(response.read().decode())
                 
-                for dia in lista_dias:
-                    data_str = str(dia.get("dataPrev", dia.get("forecastDate", "")))[:10]
-                    
-                    # Procura o ID Tempo nas várias chaves possíveis do IPMA
-                    id_wt = dia.get("idWeatherType")
-                    if id_wt is None or id_wt == "": 
-                        id_wt = dia.get("idWeathertype")
-                    if id_wt is None or id_wt == "": 
-                        id_wt = dia.get("idWeatherType1")
-                    
-                    # Se o IPMA enviar o código -99 (Significa sem dados)
-                    if id_wt == -99 or id_wt == -99.0 or id_wt is None or id_wt == "":
-                        id_wt = "N/D"
+                # Percorrer os dados do JSON fornecido pelo IPMA
+                for dia_prev in dados_api:
+                    # Aplicar exatamente a tua regra: procurar o idPeriodo igual a 24
+                    if str(dia_prev.get("idPeriodo")) == "24":
+                        data_completa = dia_prev.get("dataPrev", "")
+                        data_str = data_completa[:10] # Fica apenas com a parte YYYY-MM-DD
                         
-                    if data_str:
-                        mapa_id_tempo[data_str] = id_wt
+                        # Procurar pela coluna idTipoTempo
+                        id_wt = dia_prev.get("idTipoTempo")
+                        
+                        # Guardar na nossa "agenda" para aquele dia
+                        if id_wt is not None and str(id_wt) != "-99":
+                            mapa_id_tempo[data_str] = id_wt
         except Exception as e_api:
-            print(f"⚠️ Aviso: Falha na tática Selenium para {nome_concelho}: {e_api}")
+            print(f"⚠️ Erro ao aceder à API para {nome_concelho}: {e_api}")
         # ========================================================
 
         caixa_concelho = None
@@ -150,7 +137,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 final_h_max = (h_max / 100) if h_max is not None else "N/D"
                                 final_h_min = (h_min / 100) if h_min is not None else "N/D"
 
-                                # Cruzamento da Data: Procura no mapa da tática ninja
+                                # Cruzamento da Data: Procura no mapa criado a partir da API
                                 data_formatada = dado_full_date.strftime("%Y-%m-%d")
                                 id_tempo_final = mapa_id_tempo.get(data_formatada, "N/D")
 
@@ -164,7 +151,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                     "Vento_Dir": dado.get("ff_class_2", "N/D"),
                                     "Precip": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
                                     "Risco": dict_risco.get(valor_risco_num, "N/D"),
-                                    "ID_Tempo": id_tempo_final, 
+                                    "ID_Tempo": id_tempo_final, # <-- O valor real lido do ficheiro
                                     "Dia": dado_full_date
                                 })
                         except ValueError:
@@ -206,7 +193,7 @@ if not df.empty:
     nome_xlsx = "Painel_Mestre_IPMA.xlsx"
     df.to_excel(nome_xlsx, index=False)
 
-    print("🎉 SUCESSO! Estrutura gerada com a nova coluna ID_Tempo preenchida.")
+    print("🎉 SUCESSO! Estrutura gerada com a coluna ID_Tempo preenchida com sucesso.")
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
 
