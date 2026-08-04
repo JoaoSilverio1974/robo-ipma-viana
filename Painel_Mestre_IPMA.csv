@@ -5,7 +5,7 @@ Melgaço,26.1,16.7,0.995,0.66,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
 Monção,26.6,17.3,0.972,0.616,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
 Paredes de Coura,23.8,15.7,0.991,0.6859999999999999,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
 Ponte da Barca,26.2,17.7,1.0,0.657,Fraco,W,Chuva Fraca,N/D,10,04/08/2026
-Ponte de Lima,25.4,16.6,1.0,0.6890000000000001,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
+Ponte de Lima,25.4,16.6,1.0,0.6890000000000001,Fraco,W,Chuva Fraca,N/D,6,04/08/2026
 Valença,27.1,17.9,0.965,0.653,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
 Viana do Castelo,23.6,16.9,1.0,0.7959999999999999,Fraco,W,Chuva Fraca,N/D,7,04/08/2026
 Vila Nova de Cerveira,27.0,16.5,1.0,0.657,Fraco,SW,Chuva Fraca,N/D,7,04/08/2026
@@ -13,10 +13,10 @@ Arcos de Valdevez,29.9,16.4,0.996,0.49,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
 Caminha,22.9,16.9,0.991,0.7190000000000001,Moderado,NW,Sem Chuva,N/D,2,05/08/2026
 Melgaço,29.0,16.6,0.996,0.486,Fraco,W,Sem Chuva,N/D,2,05/08/2026
 Monção,28.8,16.5,0.9940000000000001,0.49,Fraco,W,Sem Chuva,N/D,2,05/08/2026
-Paredes de Coura,26.3,15.0,1.0,0.514,Fraco,NW,Sem Chuva,N/D,3,05/08/2026
+Paredes de Coura,26.3,15.0,1.0,0.514,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
 Ponte da Barca,30.1,16.6,0.997,0.491,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
-Ponte de Lima,28.0,15.6,1.0,0.5489999999999999,Fraco,NW,Sem Chuva,N/D,3,05/08/2026
-Valença,28.8,16.9,1.0,0.502,Fraco,NW,Sem Chuva,N/D,3,05/08/2026
+Ponte de Lima,28.0,15.6,1.0,0.5489999999999999,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
+Valença,28.8,16.9,1.0,0.502,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
 Viana do Castelo,23.7,15.7,1.0,0.6609999999999999,Moderado,NW,Sem Chuva,N/D,2,05/08/2026
 Vila Nova de Cerveira,27.9,16.1,1.0,0.529,Fraco,NW,Sem Chuva,N/D,2,05/08/2026
 Arcos de Valdevez,31.7,15.2,1.0,0.402,Fraco,NW,Sem Chuva,N/D,1,06/08/2026
@@ -42,22 +42,22 @@ Vila Nova de Cerveira,30.6,15.5,1.0,0.42,Fraco,W,Sem Chuva,N/D,2,07/08/2026
 Arcos de Valdevez,28.9,16.6,0.914,0.515,Fraco,SW,Chuva Fraca,N/D,7,08/08/2026
 Caminha,23.8,16.4,0.996,0.711,Fraco,W,Chuva Fraca,N/D,7,08/08/2026
 Melgaço,28.8,16.8,0.9159999999999999,0.505,Fraco,W,Chuva Fraca,N/D,7,08/08/2026
-Monção,29.1,16.5,0.9490000000000001,0.49200000000000005,Fraco,W,Chuva Moderada,N/D,6,08/08/2026
-Paredes de Coura,26.0,14.7,0.909,0.545,Fraco,W,Chuva Moderada,N/D,6,08/08/2026
+Monção,29.1,16.5,0.9490000000000001,0.49200000000000005,Fraco,W,Chuva Moderada,N/D,7,08/08/2026
+Paredes de Coura,26.0,14.7,0.909,0.545,Fraco,W,Chuva Moderada,N/D,7,08/08/2026
 Ponte da Barca,29.1,16.8,0.914,0.511,Fraco,SW,Chuva Fraca,N/D,7,08/08/2026
-Ponte de Lima,27.6,15.2,0.972,0.5579999999999999,Fraco,W,Chuva Moderada,N/D,6,08/08/2026
-Valença,29.0,16.6,0.914,0.513,Fraco,W,Chuva Moderada,N/D,6,08/08/2026
+Ponte de Lima,27.6,15.2,0.972,0.5579999999999999,Fraco,W,Chuva Moderada,N/D,7,08/08/2026
+Valença,29.0,16.6,0.914,0.513,Fraco,W,Chuva Moderada,N/D,7,08/08/2026
 Viana do Castelo,23.8,15.6,1.0,0.7120000000000001,Fraco,W,Chuva Fraca,N/D,7,08/08/2026
-Vila Nova de Cerveira,28.3,15.5,1.0,0.531,Fraco,W,Chuva Moderada,N/D,6,08/08/2026
+Vila Nova de Cerveira,28.3,15.5,1.0,0.531,Fraco,W,Chuva Moderada,N/D,7,08/08/2026
 Arcos de Valdevez,29.9,16.6,,,Fraco,NW,Sem Chuva,N/D,3,09/08/2026
-Caminha,23.4,16.7,,,Moderado,NW,Sem Chuva,N/D,2,09/08/2026
-Melgaço,29.5,16.3,,,Fraco,N,Chuva Fraca,N/D,7,09/08/2026
-Monção,29.6,16.3,,,Fraco,N,Sem Chuva,N/D,3,09/08/2026
+Caminha,23.4,16.7,,,Moderado,NW,Sem Chuva,N/D,3,09/08/2026
+Melgaço,29.5,16.3,,,Fraco,N,Chuva Fraca,N/D,2,09/08/2026
+Monção,29.6,16.3,,,Fraco,N,Sem Chuva,N/D,2,09/08/2026
 Paredes de Coura,26.6,15.1,,,Fraco,N,Sem Chuva,N/D,3,09/08/2026
 Ponte da Barca,30.1,16.8,,,Fraco,NW,Sem Chuva,N/D,3,09/08/2026
 Ponte de Lima,28.3,15.5,,,Fraco,N,Sem Chuva,N/D,3,09/08/2026
 Valença,29.5,17.1,,,Fraco,N,Sem Chuva,N/D,3,09/08/2026
-Viana do Castelo,24.2,16.1,,,Fraco,NW,Sem Chuva,N/D,2,09/08/2026
+Viana do Castelo,24.2,16.1,,,Fraco,NW,Sem Chuva,N/D,3,09/08/2026
 Vila Nova de Cerveira,28.7,16.0,,,Fraco,N,Sem Chuva,N/D,3,09/08/2026
 Arcos de Valdevez,31.7,16.4,,,Fraco,W,Sem Chuva,N/D,2,10/08/2026
 Caminha,24.2,16.3,,,Fraco,W,Sem Chuva,N/D,2,10/08/2026
