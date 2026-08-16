@@ -1,14 +1,4 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,ID_Tempo,Dia
-Arcos de Valdevez,34.6,18.4,0.929,0.36200000000000004,Fraco,NE,Chuva Forte,N/D,20,15/08/2026
-Caminha,27.5,18.8,0.871,0.588,Moderado,N,Sem Chuva,N/D,2,15/08/2026
-Melgaço,34.1,19.1,0.9109999999999999,0.35600000000000004,Moderado,NE,Chuva Forte,N/D,20,15/08/2026
-Monção,34.5,19.9,0.846,0.353,Moderado,NE,Sem Chuva,N/D,3,15/08/2026
-Paredes de Coura,32.9,17.2,0.899,0.35,Fraco,N,Chuva Forte,N/D,20,15/08/2026
-Ponte da Barca,34.7,18.6,0.9279999999999999,0.364,Fraco,NE,Chuva Forte,N/D,20,15/08/2026
-Ponte de Lima,33.9,16.8,1.0,0.37200000000000005,Fraco,N,Chuva Forte,N/D,20,15/08/2026
-Valença,35.7,19.6,0.8759999999999999,0.35,Moderado,NE,Chuva Forte,N/D,20,15/08/2026
-Viana do Castelo,29.4,16.7,1.0,0.604,Fraco,NW,Sem Chuva,N/D,2,15/08/2026
-Vila Nova de Cerveira,36.0,19.2,0.889,0.389,Moderado,NE,Chuva Forte,N/D,20,15/08/2026
 Arcos de Valdevez,36.5,18.5,0.932,0.271,Fraco,NW,Sem Chuva,N/D,2,16/08/2026
 Caminha,28.3,18.1,0.919,0.56,Fraco,NW,Sem Chuva,N/D,2,16/08/2026
 Melgaço,35.9,18.2,0.96,0.27399999999999997,Fraco,E,Sem Chuva,N/D,3,16/08/2026
