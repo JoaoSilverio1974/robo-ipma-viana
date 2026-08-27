@@ -2,6 +2,7 @@ import pandas as pd
 import time
 from datetime import datetime
 import json
+import urllib.request
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -12,20 +13,8 @@ import zoneinfo
 
 print("🤖 A iniciar o motor do Robô no GitHub Actions...")
 
-# --- 1. DEFINIÇÃO EXATA DA DATA (FUSO HORÁRIO PT) ---
 fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
 current_date_today = datetime.now(fuso_pt).date()
-
-# --- 2. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR (ANTI-BLOQUEIO) ---
-chrome_options = Options()
-chrome_options.add_argument("--headless")
-chrome_options.add_argument("--no-sandbox")
-chrome_options.add_argument("--disable-dev-shm-usage")
-# Enganar o firewall fazendo passar-se por um Chrome normal de Windows
-chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
-
-service = Service(ChromeDriverManager().install())
-driver = webdriver.Chrome(service=service, options=chrome_options)
 
 concelhos_dico = {
     "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
@@ -35,40 +24,65 @@ concelhos_dico = {
 }
 
 # ========================================================
-# FASE 1: OBTER ID_TEMPO VIA SELENIUM (CONTORNA BLOQUEIOS)
+# FASE 1: AUDITORIA E EXTRAÇÃO DO ID_TEMPO (SEM SELENIUM)
 # ========================================================
+print("☁️ A descarregar IDs de Tempo via APIs do IPMA (Dupla Verificação)...")
 mapa_geral_tempo = {}
+# Cabeçalho para fingir que somos um humano no Windows
+headers_api = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36'}
 
-print("☁️ A descarregar IDs de Tempo via API interna do IPMA...")
 for codigo_id, nome_concelho in concelhos_dico.items():
     global_id_local = f"1{codigo_id}00"
     mapa_geral_tempo[nome_concelho] = {}
     
-    url_api = f"https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json"
-    
+    # --- TENTATIVA 1: API Open-Data Oficial (Tem ~5 dias garantidos e não bloqueia) ---
     try:
-        # Usamos o driver do Chrome em vez do urllib para não sermos bloqueados
-        driver.get(url_api)
-        time.sleep(1.5) # Pequena pausa para o navegador carregar o JSON
-        
-        # O Chrome coloca o JSON dentro da tag <body>
-        body_text = driver.find_element(By.TAG_NAME, "body").text
-        dados_api = json.loads(body_text)
-        
-        for dia_prev in dados_api:
-            if str(dia_prev.get("idPeriodo")) == "24":
-                data_completa = dia_prev.get("dataPrev") or ""
-                if len(data_completa) >= 10:
-                    data_str = data_completa[:10]
-                    id_wt = dia_prev.get("idTipoTempo")
-                    if id_wt is not None and str(id_wt) != "-99":
-                        mapa_geral_tempo[nome_concelho][data_str] = id_wt
-        print(f"✔️ Tempo recolhido com sucesso: {nome_concelho}")
-        
+        url_open = f"https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/{global_id_local}.json"
+        req = urllib.request.Request(url_open, headers=headers_api)
+        with urllib.request.urlopen(req, timeout=10) as response:
+            dados = json.loads(response.read().decode('utf-8'))
+            for dia in dados.get("data", []):
+                data_str = dia.get("forecastDate", "")[:10]
+                id_wt = dia.get("idWeatherType") # AQUI CHAMA-SE idWeatherType
+                if id_wt is not None and str(id_wt) != "-99":
+                    mapa_geral_tempo[nome_concelho][data_str] = id_wt
+        print(f"  ✔️ {nome_concelho}: Open-Data extraiu {len(mapa_geral_tempo[nome_concelho])} dias.")
     except Exception as e:
-        print(f"⚠️ Erro ao recolher API de {nome_concelho}: {e}")
+        print(f"  ⚠️ {nome_concelho}: Falha no Open-Data ({e})")
+        
+    # --- TENTATIVA 2: API Aggregate (Para ir buscar os dias 6 ao 10) ---
+    try:
+        url_agg = f"https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json"
+        req = urllib.request.Request(url_agg, headers=headers_api)
+        with urllib.request.urlopen(req, timeout=10) as response:
+            dados = json.loads(response.read().decode('utf-8'))
+            count_extra = 0
+            for dia in dados:
+                if str(dia.get("idPeriodo")) == "24":
+                    data_str = dia.get("dataPrev", "")[:10]
+                    id_wt = dia.get("idTipoTempo") # AQUI CHAMA-SE idTipoTempo
+                    if id_wt is not None and str(id_wt) != "-99":
+                        # Só adiciona se o Open-Data não tiver apanhado este dia
+                        if data_str not in mapa_geral_tempo[nome_concelho]:
+                            mapa_geral_tempo[nome_concelho][data_str] = id_wt
+                            count_extra += 1
+        print(f"  ➕ {nome_concelho}: Aggregate adicionou {count_extra} dias extra.")
+    except Exception as e:
+        print(f"  ⚠️ {nome_concelho}: Falha no Aggregate ({e})")
 
+
+# ========================================================
+# FASE 2: EXTRAIR GRÁFICOS (RISCO/VENTO) VIA SELENIUM
+# ========================================================
 print("\n🌍 A entrar no Portal de Risco de Incêndio do IPMA...")
+chrome_options = Options()
+chrome_options.add_argument("--headless")
+chrome_options.add_argument("--no-sandbox")
+chrome_options.add_argument("--disable-dev-shm-usage")
+
+service = Service(ChromeDriverManager().install())
+driver = webdriver.Chrome(service=service, options=chrome_options)
+
 driver.get("https://www.ipma.pt/pt/riscoincendio/rcm.pt/")
 time.sleep(5)
 
@@ -77,20 +91,16 @@ for caixa in driver.find_elements(By.TAG_NAME, "select"):
     if "Viana do Castelo" in caixa.text:
         caixa_distrito = Select(caixa)
         break
-
 if caixa_distrito:
     caixa_distrito.select_by_visible_text("Viana do Castelo")
     time.sleep(2)
 
-# ========================================================
-# FASE 2: EXTRAIR GRÁFICOS E CRUZAR COM OS DADOS DE TEMPO
-# ========================================================
 dados_finais = []
 dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
 dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
-print("🔥 Início da Extração de Gráficos (Risco e Vento)...")
+print("\n🔥 Início da Extração de Gráficos e Cruzamento de Dados...")
 for codigo_id, nome_concelho in concelhos_dico.items():
     try:
         caixa_concelho = None
@@ -101,7 +111,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
 
         if caixa_concelho:
             caixa_concelho.select_by_visible_text(nome_concelho)
-            time.sleep(2)
+            time.sleep(2.5)
 
             dados_brutos = driver.execute_script("""
                 let extraidos = [];
@@ -132,8 +142,8 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                     y += 1
 
                             dado_full_date = datetime(y, m, day_int).date()
-
                             delta_days = (dado_full_date - current_date_today).days
+                            
                             if 0 <= delta_days <= 9:
                                 h_max = dado.get("hr_max")
                                 h_min = dado.get("hr_min")
@@ -146,10 +156,9 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 final_h_min = (h_min / 100) if h_min is not None else "N/D"
 
                                 # ========================================================
-                                # CRUZAMENTO FINAL COM OS DADOS CARREGADOS NA FASE 1
+                                # CRUZAMENTO FINAL COM O MAPA DA FASE 1
                                 # ========================================================
                                 data_formatada = dado_full_date.strftime("%Y-%m-%d")
-                                # Vai ao dicionário específico deste concelho buscar a data
                                 id_tempo_final = mapa_geral_tempo.get(nome_concelho, {}).get(data_formatada, "N/D")
 
                                 dados_finais.append({
@@ -162,7 +171,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                     "Vento_Dir": dado.get("ff_class_2", "N/D"),
                                     "Precip": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
                                     "Risco": dict_risco.get(valor_risco_num, "N/D"),
-                                    "ID_Tempo": id_tempo_final,
+                                    "ID_Tempo": id_tempo_final, # <-- Ganhámos!
                                     "Dia": dado_full_date
                                 })
                         except ValueError:
@@ -173,6 +182,9 @@ for codigo_id, nome_concelho in concelhos_dico.items():
 
 driver.quit()
 
+# ========================================================
+# FASE 3: GRAVAÇÃO DOS DADOS
+# ========================================================
 print("\n📊 A preparar os ficheiros locais...")
 df = pd.DataFrame(dados_finais)
 
@@ -194,24 +206,16 @@ if not df.empty:
 
     df['Dia'] = df['Dia'].dt.strftime('%d/%m/%Y')
 
-    nome_csv = "Painel_Mestre_IPMA.csv"
-    df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
+    df.to_csv("Painel_Mestre_IPMA.csv", index=False, sep=',', encoding='utf-8-sig')
+    df.to_excel("Painel_Mestre_IPMA.xlsx", index=False)
 
-    nome_xlsx = "Painel_Mestre_IPMA.xlsx"
-    df.to_excel(nome_xlsx, index=False)
-
-    print("🎉 SUCESSO TOTAL! Ficheiros gravados com ID_Tempo correto.")
+    print("🎉 SUCESSO TOTAL! Estrutura gerada com ID_Tempo correto.")
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
 
-# ==========================================
-# REGISTO DE HORA (LIVRO DE PONTO DO ROBÔ)
-# ==========================================
+# REGISTO DE PONTO
 agora = datetime.now(fuso_pt).strftime("%d/%m/%Y %H:%M:%S")
-log_file = "log_execucao.csv"
-
-with open(log_file, "w", encoding="utf-8") as f:
+with open("log_execucao.csv", "w", encoding="utf-8") as f:
     f.write("Ultima_Atualizacao\n")
     f.write(f"{agora}\n")
-
-print(f"🕒 Registo de hora atualizado com sucesso: {agora} (Hora PT)")
+print(f"🕒 Registo de hora atualizado: {agora}")
