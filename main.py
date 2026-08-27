@@ -12,20 +12,19 @@ import zoneinfo
 
 print("🤖 A iniciar o motor do Robô no GitHub Actions...")
 
+# 1. Definir o fuso horário correto (Portugal)
 fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
 current_date_today = datetime.now(fuso_pt).date()
 
+# 2. Configurar o navegador para não ser detetado como Bot
 chrome_options = Options()
 chrome_options.add_argument("--headless")
 chrome_options.add_argument("--no-sandbox")
 chrome_options.add_argument("--disable-dev-shm-usage")
-# Fingir que somos um Humano a usar o Google Chrome no Windows
 chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36")
 
 service = Service(ChromeDriverManager().install())
 driver = webdriver.Chrome(service=service, options=chrome_options)
-# Dar tempo suficiente para o navegador processar as chamadas JS Assíncronas
-driver.set_script_timeout(15) 
 
 concelhos_dico = {
     "1601": "Arcos de Valdevez", "1602": "Caminha", "1603": "Melgaço",
@@ -34,61 +33,58 @@ concelhos_dico = {
     "1610": "Vila Nova de Cerveira"
 }
 
-url_base = "https://www.ipma.pt/pt/riscoincendio/rcm.pt/"
-print(f"🌍 A entrar no Portal Principal do IPMA ({url_base})...")
-driver.get(url_base)
-time.sleep(5) # Pausa crucial para o Cloudflare validar a nossa entrada
-
 # ========================================================
-# FASE 1: DESCARREGAR "ID_TEMPO" POR DENTRO DO SITE (Anti-Bloqueio)
+# FASE 1: NAVEGAR DIRETAMENTE À API E LER O TEXTO (100% SEGURO)
 # ========================================================
-print("☁️ A Extrair APIs de Previsão por dentro da página segura...")
-
-# Este script em JS é o nosso "Cavalo de Troia". Usa a sessão limpa da página para ler a API!
-script_fetch = """
-    var uri = arguments[0];
-    var callback = arguments[arguments.length - 1];
-    fetch(uri)
-        .then(response => {
-            if (response.ok) { return response.text(); } 
-            else { throw new Error("HTTP " + response.status); }
-        })
-        .then(text => callback(text))
-        .catch(err => callback("ERRO: " + err.message));
-"""
-
+print("☁️ A extrair IDs de Tempo navegando fisicamente aos links da API...")
 mapa_geral_tempo = {}
 
 for codigo_id, nome_concelho in concelhos_dico.items():
-    global_id_local = f"1{codigo_id}00" # Constrói o ID exato exigido pelo IPMA
+    global_id_local = f"1{codigo_id}00"
     mapa_geral_tempo[nome_concelho] = {}
+    
+    # URL oficial do IPMA onde estão os 10 dias de previsão (o ID_Tempo real chama-se idTipoTempo aqui)
     url_api = f"https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json"
     
     try:
-        # A magia acontece aqui: o Selenium executa o fetch internamente!
-        resultado = driver.execute_async_script(script_fetch, url_api)
+        driver.get(url_api)
+        time.sleep(2.5) # Pausa estrita para deixar passar verificações Cloudflare
         
-        if resultado and not str(resultado).startswith("ERRO"):
-            dados_api = json.loads(resultado)
-            count_dias = 0
-            for dia_prev in dados_api:
-                if str(dia_prev.get("idPeriodo")) == "24":
-                    data_str = dia_prev.get("dataPrev", "")[:10]
-                    id_wt = dia_prev.get("idTipoTempo")
-                    if id_wt is not None and str(id_wt) != "-99":
-                        mapa_geral_tempo[nome_concelho][data_str] = id_wt
-                        count_dias += 1
-            print(f"  ✔️ {nome_concelho}: {count_dias} dias ID_Tempo extraídos.")
-        else:
-            print(f"  ⚠️ {nome_concelho}: A API devolveu {resultado}")
+        # O Chrome nativamente coloca ficheiros JSON dentro de uma tag HTML <pre>
+        try:
+            conteudo_bruto = driver.find_element(By.XPATH, "//pre").text
+        except:
+            # Se não estiver no <pre>, lê o texto da página inteira
+            conteudo_bruto = driver.find_element(By.TAG_NAME, "body").text
             
+        dados_api = json.loads(conteudo_bruto)
+        
+        count_dias = 0
+        for dia_prev in dados_api:
+            # "24" significa previsão diária (e não horária)
+            if str(dia_prev.get("idPeriodo")) == "24":
+                data_str = dia_prev.get("dataPrev", "")[:10]
+                id_wt = dia_prev.get("idTipoTempo")
+                
+                if id_wt is not None and str(id_wt) != "-99":
+                    mapa_geral_tempo[nome_concelho][data_str] = id_wt
+                    count_dias += 1
+                    
+        print(f"  ✔️ {nome_concelho}: {count_dias} dias ID_Tempo extraídos.")
+        
+    except json.JSONDecodeError:
+        print(f"  ❌ {nome_concelho} BLOQUEADO! O IPMA não enviou JSON. Mensagem recebida:")
+        print(f"     -> {conteudo_bruto[:150]}...")
     except Exception as e:
-        print(f"  ❌ Erro interno no {nome_concelho}: {e}")
+        print(f"  ❌ Erro de rede no {nome_concelho}: {e}")
 
 # ========================================================
-# FASE 2: EXTRAIR GRÁFICOS E CRUZAR OS DADOS
+# FASE 2: EXTRAIR OS GRÁFICOS DO PORTAL DE RISCO
 # ========================================================
-print("\n🔥 A Configurar a Vista de Viana do Castelo para extrair Gráficos...")
+print("\n🌍 A entrar no Portal de Risco de Incêndio do IPMA...")
+driver.get("https://www.ipma.pt/pt/riscoincendio/rcm.pt/")
+time.sleep(5)
+
 caixa_distrito = None
 for caixa in driver.find_elements(By.TAG_NAME, "select"):
     if "Viana do Castelo" in caixa.text:
@@ -103,6 +99,7 @@ dict_vento = {1: "Fraco", 2: "Moderado", 3: "Forte", 4: "Muito Forte"}
 dict_chuva = {0: "Sem Chuva", 1: "Chuva Fraca", 2: "Chuva Moderada", 3: "Chuva Forte"}
 dict_risco = {1: "Reduzido", 2: "Moderado", 3: "Elevado", 4: "Muito Elevado", 5: "Máximo"}
 
+print("\n🔥 A cruzar dados dos Gráficos com os IDs de Tempo...")
 for codigo_id, nome_concelho in concelhos_dico.items():
     try:
         caixa_concelho = None
@@ -157,7 +154,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                 final_h_max = (h_max / 100) if h_max is not None else "N/D"
                                 final_h_min = (h_min / 100) if h_min is not None else "N/D"
 
-                                # --- CRUZAMENTO --- (Vai buscar à memória os valores obtidos na Fase 1)
+                                # --- O ENCAIXE PERFEITO ---
                                 data_formatada = dado_full_date.strftime("%Y-%m-%d")
                                 id_tempo_final = mapa_geral_tempo.get(nome_concelho, {}).get(data_formatada, "N/D")
 
@@ -171,21 +168,21 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                     "Vento_Dir": dado.get("ff_class_2", "N/D"),
                                     "Precip": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
                                     "Risco": dict_risco.get(valor_risco_num, "N/D"),
-                                    "ID_Tempo": id_tempo_final, # 🚀 Aqui vai o ID Real
+                                    "ID_Tempo": id_tempo_final,
                                     "Dia": dado_full_date
                                 })
                         except ValueError:
                             pass
-        print(f"📊 Gráficos processados: {nome_concelho}")
+        print(f"📊 Processado com sucesso: {nome_concelho}")
     except Exception as e:
-        print(f"❌ Erro gráfico no {nome_concelho}: {e}")
+        print(f"❌ Erro ao extrair gráficos no concelho {nome_concelho}: {e}")
 
 driver.quit()
 
 # ========================================================
-# FASE 3: GRAVAÇÃO E TRATAMENTO
+# FASE 3: EXPORTAÇÃO DOS DADOS
 # ========================================================
-print("\n💾 A gravar ficheiros de saída (Excel e CSV)...")
+print("\n💾 A gravar ficheiros (Excel e CSV)...")
 df = pd.DataFrame(dados_finais)
 
 if not df.empty:
@@ -208,12 +205,11 @@ if not df.empty:
 
     df.to_csv("Painel_Mestre_IPMA.csv", index=False, sep=',', encoding='utf-8-sig')
     df.to_excel("Painel_Mestre_IPMA.xlsx", index=False)
-
-    print("🎉 SUCESSO TOTAL! Os 10 concelhos e os 10 dias foram processados.")
+    print("🎉 SUCESSO TOTAL!")
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
 
-# REGISTO DE PONTO
+# REGISTO DO LOG
 agora = datetime.now(fuso_pt).strftime("%d/%m/%Y %H:%M:%S")
 with open("log_execucao.csv", "w", encoding="utf-8") as f:
     f.write("Ultima_Atualizacao\n")
