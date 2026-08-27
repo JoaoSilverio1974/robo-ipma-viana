@@ -13,6 +13,10 @@ import zoneinfo
 
 print("🤖 A iniciar o motor do Robô no GitHub Actions...")
 
+# --- CORREÇÃO 1: Fuso Horário logo no início ---
+fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
+current_date_today = datetime.now(fuso_pt).date()
+
 # --- 1. CONFIGURAÇÃO UNIVERSAL DO NAVEGADOR ---
 chrome_options = Options()
 chrome_options.add_argument("--headless")
@@ -48,7 +52,13 @@ if caixa_distrito:
     caixa_distrito.select_by_visible_text("Viana do Castelo")
     time.sleep(2)
 
-current_date_today = datetime.now().date()
+# --- CORREÇÃO 2: Cabeçalhos reforçados para passar o Firewall (WAF) ---
+api_headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/javascript, */*; q=0.01',
+    'Referer': 'https://www.ipma.pt/',
+    'Origin': 'https://www.ipma.pt'
+}
 
 print("✅ Início da Extração de Dados...")
 for codigo_id, nome_concelho in concelhos_dico.items():
@@ -56,33 +66,45 @@ for codigo_id, nome_concelho in concelhos_dico.items():
         print(f"A descarregar: {nome_concelho}...")
         
         # ========================================================
-        # 🌟 LEITURA DIRETA E EXATA DA API DO IPMA
+        # 🌟 LEITURA DA API DO IPMA (COM FALLBACK DE SEGURANÇA)
         # ========================================================
         global_id_local = f"1{codigo_id}00"
         mapa_id_tempo = {}
         
         try:
+            # 1ª Tentativa: API Aggregate (10 dias)
             url_api = f"https://api.ipma.pt/public-data/forecast/aggregate/{global_id_local}.json"
-            # Cabeçalho para o IPMA aceitar o pedido sem problemas
-            req = urllib.request.Request(url_api, headers={'User-Agent': 'Mozilla/5.0'})
+            req = urllib.request.Request(url_api, headers=api_headers)
             with urllib.request.urlopen(req) as response:
                 dados_api = json.loads(response.read().decode())
                 
-                # Percorrer os dados do JSON fornecido pelo IPMA
                 for dia_prev in dados_api:
-                    # Aplicar exatamente a tua regra: procurar o idPeriodo igual a 24
                     if str(dia_prev.get("idPeriodo")) == "24":
-                        data_completa = dia_prev.get("dataPrev", "")
-                        data_str = data_completa[:10] # Fica apenas com a parte YYYY-MM-DD
-                        
-                        # Procurar pela coluna idTipoTempo
-                        id_wt = dia_prev.get("idTipoTempo")
-                        
-                        # Guardar na nossa "agenda" para aquele dia
-                        if id_wt is not None and str(id_wt) != "-99":
-                            mapa_id_tempo[data_str] = id_wt
+                        data_completa = dia_prev.get("dataPrev") or ""
+                        if len(data_completa) >= 10:
+                            data_str = data_completa[:10]
+                            id_wt = dia_prev.get("idTipoTempo")
+                            if id_wt is not None and str(id_wt) != "-99":
+                                mapa_id_tempo[data_str] = id_wt
+        
         except Exception as e_api:
-            print(f"⚠️ Erro ao aceder à API para {nome_concelho}: {e_api}")
+            print(f"⚠️ Aggregate bloqueado/falhou para {nome_concelho} ({e_api}). Tentando API Open-Data...")
+            try:
+                # 2ª Tentativa (Fallback): API Open-Data Oficial (5 dias) - Dificilmente bloqueada
+                url_open_data = f"https://api.ipma.pt/open-data/forecast/meteorology/cities/daily/{global_id_local}.json"
+                req2 = urllib.request.Request(url_open_data, headers=api_headers)
+                with urllib.request.urlopen(req2) as response2:
+                    dados_api2 = json.loads(response2.read().decode())
+                    
+                    for dia_prev in dados_api2.get("data", []):
+                        data_completa = dia_prev.get("forecastDate") or ""
+                        if len(data_completa) >= 10:
+                            data_str = data_completa[:10]
+                            id_wt = dia_prev.get("idWeatherType")
+                            if id_wt is not None and str(id_wt) != "-99":
+                                mapa_id_tempo[data_str] = id_wt
+            except Exception as e_api2:
+                print(f"❌ Falha total ao extrair ID_Tempo da API para {nome_concelho}: {e_api2}")
         # ========================================================
 
         caixa_concelho = None
@@ -151,7 +173,7 @@ for codigo_id, nome_concelho in concelhos_dico.items():
                                     "Vento_Dir": dado.get("ff_class_2", "N/D"),
                                     "Precip": dict_chuva.get(dado.get("rr_class", 0), "N/D"),
                                     "Risco": dict_risco.get(valor_risco_num, "N/D"),
-                                    "ID_Tempo": id_tempo_final, # <-- O valor real lido do ficheiro
+                                    "ID_Tempo": id_tempo_final,
                                     "Dia": dado_full_date
                                 })
                         except ValueError:
@@ -165,28 +187,23 @@ print("📊 A preparar os ficheiros locais...")
 df = pd.DataFrame(dados_finais)
 
 if not df.empty:
-    # Garantir a ordem exata das colunas incluindo a nova "ID_Tempo"
     ordem_colunas = [
         "Concelho", "Temp_Max", "Temp_Min", "Hum_Max", "Hum_Min", 
         "Vento_Int", "Vento_Dir", "Precip", "Risco", "ID_Tempo", "Dia"
     ]
     df = df[ordem_colunas]
 
-    # Ordenar por Dia e depois por Concelho
     df['Dia'] = pd.to_datetime(df['Dia'])
     df = df.dropna(subset=['Dia'])
     df = df.sort_values(by=['Dia', 'Concelho'])
 
-    # Converter numéricos
     colunas_num = ["Temp_Max", "Temp_Min", "Hum_Max", "Hum_Min"]
     for col in colunas_num:
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors='coerce')
 
-    # Formatar a data EXATAMENTE como na imagem: DD/MM/YYYY
     df['Dia'] = df['Dia'].dt.strftime('%d/%m/%Y')
 
-    # Gerar os ficheiros
     nome_csv = "Painel_Mestre_IPMA.csv"
     df.to_csv(nome_csv, index=False, sep=',', encoding='utf-8-sig')
 
@@ -197,12 +214,10 @@ if not df.empty:
 else:
     print("⚠️ Aviso: Nenhum dado foi extraído.")
 
-
 # ==========================================
 # REGISTO DE HORA (LIVRO DE PONTO DO ROBÔ)
 # ==========================================
 
-fuso_pt = zoneinfo.ZoneInfo("Europe/Lisbon")
 agora = datetime.now(fuso_pt).strftime("%d/%m/%Y %H:%M:%S")
 
 log_file = "log_execucao.csv"
