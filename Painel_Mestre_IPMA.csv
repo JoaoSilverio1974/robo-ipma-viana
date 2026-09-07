@@ -1,14 +1,4 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,ID_Tempo,Dia
-Arcos de Valdevez,30.9,15.3,0.9890000000000001,0.462,Fraco,NW,Sem Chuva,N/D,2,07/09/2026
-Caminha,23.8,16.1,1.0,0.758,Moderado,NW,Sem Chuva,N/D,2,07/09/2026
-Melgaço,29.3,15.2,0.992,0.544,Fraco,W,Sem Chuva,N/D,2,07/09/2026
-Monção,29.1,15.0,0.9890000000000001,0.5720000000000001,Fraco,NW,Sem Chuva,N/D,2,07/09/2026
-Paredes de Coura,27.2,13.7,1.0,0.569,Fraco,N,Sem Chuva,N/D,2,07/09/2026
-Ponte da Barca,31.0,15.5,0.9890000000000001,0.46399999999999997,Fraco,NW,Sem Chuva,N/D,2,07/09/2026
-Ponte de Lima,29.1,14.8,1.0,0.5579999999999999,Fraco,N,Sem Chuva,N/D,2,07/09/2026
-Valença,29.2,15.8,1.0,0.597,Fraco,NW,Sem Chuva,N/D,2,07/09/2026
-Viana do Castelo,25.6,14.4,1.0,0.711,Moderado,NW,Sem Chuva,N/D,2,07/09/2026
-Vila Nova de Cerveira,28.3,15.1,1.0,0.63,Fraco,NW,Sem Chuva,N/D,2,07/09/2026
 Arcos de Valdevez,26.5,14.3,1.0,0.599,Fraco,W,Chuva Moderada,N/D,9,08/09/2026
 Caminha,22.3,15.8,0.998,0.773,Fraco,N,Chuva Moderada,N/D,6,08/09/2026
 Melgaço,24.9,13.6,0.998,0.6709999999999999,Fraco,W,Chuva Moderada,N/D,9,08/09/2026
