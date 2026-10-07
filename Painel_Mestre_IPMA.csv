@@ -1,6 +1,6 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,ID_Tempo,Dia
 Arcos de Valdevez,24.5,11.4,1.0,0.48,Fraco,N,Sem Chuva,N/D,3,07/10/2026
-Caminha,21.5,14.7,0.988,0.701,Moderado,N,Chuva Fraca,N/D,7,07/10/2026
+Caminha,21.5,14.7,0.988,0.701,Moderado,N,Chuva Fraca,N/D,3,07/10/2026
 Melgaço,22.5,11.9,1.0,0.595,Fraco,NE,Chuva Fraca,N/D,7,07/10/2026
 Monção,23.1,11.9,1.0,0.583,Fraco,N,Chuva Fraca,N/D,7,07/10/2026
 Paredes de Coura,21.3,11.4,1.0,0.5670000000000001,Fraco,N,Chuva Fraca,N/D,7,07/10/2026
@@ -33,7 +33,7 @@ Arcos de Valdevez,25.0,10.6,0.929,0.498,Fraco,NE,Sem Chuva,N/D,2,10/10/2026
 Caminha,20.1,11.7,0.9259999999999999,0.6890000000000001,Fraco,N,Sem Chuva,N/D,2,10/10/2026
 Melgaço,24.1,9.7,0.9990000000000001,0.5479999999999999,Fraco,E,Sem Chuva,N/D,2,10/10/2026
 Monção,24.1,9.6,0.9670000000000001,0.569,Fraco,NW,Sem Chuva,N/D,2,10/10/2026
-Paredes de Coura,22.7,8.8,0.943,0.521,Fraco,NE,Sem Chuva,N/D,2,10/10/2026
+Paredes de Coura,22.7,8.8,0.943,0.521,Fraco,NE,Sem Chuva,N/D,5,10/10/2026
 Ponte da Barca,25.2,10.8,0.929,0.502,Fraco,NE,Sem Chuva,N/D,2,10/10/2026
 Ponte de Lima,24.0,10.0,0.987,0.5379999999999999,Fraco,N,Sem Chuva,N/D,2,10/10/2026
 Valença,24.6,9.6,1.0,0.545,Fraco,NW,Sem Chuva,N/D,2,10/10/2026
@@ -58,7 +58,7 @@ Ponte da Barca,25.0,12.9,,,Fraco,W,Sem Chuva,N/D,2,12/10/2026
 Ponte de Lima,24.4,12.6,,,Fraco,N,Sem Chuva,N/D,2,12/10/2026
 Valença,24.6,13.8,,,Fraco,NW,Sem Chuva,N/D,2,12/10/2026
 Viana do Castelo,20.8,13.4,,,Fraco,W,Sem Chuva,N/D,2,12/10/2026
-Vila Nova de Cerveira,23.8,13.2,,,Fraco,W,Sem Chuva,N/D,3,12/10/2026
+Vila Nova de Cerveira,23.8,13.2,,,Fraco,W,Sem Chuva,N/D,2,12/10/2026
 Arcos de Valdevez,25.9,12.5,,,Fraco,W,Sem Chuva,N/D,2,13/10/2026
 Caminha,21.6,14.3,,,Fraco,N,Sem Chuva,N/D,2,13/10/2026
 Melgaço,25.0,13.5,,,Fraco,NW,Sem Chuva,N/D,2,13/10/2026
