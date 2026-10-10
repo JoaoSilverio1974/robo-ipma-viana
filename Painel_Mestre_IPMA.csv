@@ -1,14 +1,4 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,ID_Tempo,Dia
-Arcos de Valdevez,25.7,11.7,0.915,0.478,Fraco,N,Sem Chuva,N/D,2,10/10/2026
-Caminha,21.6,12.6,0.972,0.639,Moderado,N,Sem Chuva,N/D,2,10/10/2026
-Melgaço,24.1,11.2,0.955,0.5,Fraco,E,Sem Chuva,N/D,3,10/10/2026
-Monção,24.6,11.1,0.9440000000000001,0.507,Fraco,E,Sem Chuva,N/D,3,10/10/2026
-Paredes de Coura,23.3,10.1,0.9520000000000001,0.502,Fraco,N,Sem Chuva,N/D,2,10/10/2026
-Ponte da Barca,25.8,11.9,0.914,0.479,Fraco,N,Sem Chuva,N/D,2,10/10/2026
-Ponte de Lima,25.8,10.9,0.9840000000000001,0.475,Fraco,N,Sem Chuva,N/D,2,10/10/2026
-Valença,24.7,11.0,0.9890000000000001,0.542,Fraco,NE,Sem Chuva,N/D,2,10/10/2026
-Viana do Castelo,22.5,11.3,0.9990000000000001,0.638,Fraco,NW,Sem Chuva,N/D,2,10/10/2026
-Vila Nova de Cerveira,24.1,10.7,0.995,0.575,Fraco,N,Sem Chuva,N/D,2,10/10/2026
 Arcos de Valdevez,24.3,13.5,0.932,0.626,Fraco,NW,Sem Chuva,N/D,3,11/10/2026
 Caminha,19.6,14.4,1.0,0.8370000000000001,Fraco,N,Sem Chuva,N/D,3,11/10/2026
 Melgaço,22.9,13.0,0.985,0.6809999999999999,Fraco,W,Sem Chuva,N/D,7,11/10/2026
