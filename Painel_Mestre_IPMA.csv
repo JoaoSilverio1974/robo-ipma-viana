@@ -26,9 +26,9 @@ Monção,23.7,9.5,0.9229999999999999,0.4,Fraco,E,Sem Chuva,N/D,1,01/11/2026
 Paredes de Coura,23.2,8.9,0.853,0.451,Fraco,NE,Sem Chuva,N/D,1,01/11/2026
 Ponte da Barca,25.5,9.1,0.863,0.33,Fraco,NE,Sem Chuva,N/D,1,01/11/2026
 Ponte de Lima,25.8,8.7,0.972,0.42,Fraco,NE,Sem Chuva,N/D,1,01/11/2026
-Valença,24.5,9.2,0.9109999999999999,0.46799999999999997,Fraco,NE,Sem Chuva,N/D,2,01/11/2026
+Valença,24.5,9.2,0.9109999999999999,0.46799999999999997,Fraco,NE,Sem Chuva,N/D,1,01/11/2026
 Viana do Castelo,22.6,10.8,0.961,0.389,Fraco,E,Sem Chuva,N/D,1,01/11/2026
-Vila Nova de Cerveira,24.3,8.2,1.0,0.546,Fraco,E,Sem Chuva,N/D,2,01/11/2026
+Vila Nova de Cerveira,24.3,8.2,1.0,0.546,Fraco,E,Sem Chuva,N/D,1,01/11/2026
 Arcos de Valdevez,24.6,8.2,0.807,0.295,Fraco,NE,Sem Chuva,N/D,2,02/11/2026
 Caminha,20.3,9.4,0.912,0.5820000000000001,Fraco,E,Sem Chuva,N/D,2,02/11/2026
 Melgaço,23.1,8.9,0.8290000000000001,0.36,Fraco,E,Sem Chuva,N/D,2,02/11/2026
@@ -49,28 +49,28 @@ Ponte de Lima,21.4,5.2,0.917,0.33,Fraco,NW,Sem Chuva,N/D,2,03/11/2026
 Valença,20.7,6.8,0.8390000000000001,0.457,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
 Viana do Castelo,18.5,9.3,0.828,0.305,Moderado,E,Sem Chuva,N/D,2,03/11/2026
 Vila Nova de Cerveira,20.5,6.3,0.9670000000000001,0.49200000000000005,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
-Arcos de Valdevez,19.1,5.4,,,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Caminha,17.5,7.6,,,Fraco,E,Sem Chuva,N/D,2,04/11/2026
-Melgaço,18.3,5.3,,,Fraco,E,Sem Chuva,N/D,2,04/11/2026
-Monção,18.8,5.5,,,Fraco,E,Sem Chuva,N/D,2,04/11/2026
-Paredes de Coura,17.0,4.3,,,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Ponte da Barca,19.3,5.6,,,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Ponte de Lima,19.3,4.0,,,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Valença,19.2,5.4,,,Fraco,N,Sem Chuva,N/D,2,04/11/2026
-Viana do Castelo,16.8,7.9,,,Moderado,E,Sem Chuva,N/D,2,04/11/2026
-Vila Nova de Cerveira,19.0,4.8,,,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Arcos de Valdevez,19.0,6.6,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
-Caminha,17.7,8.6,,,Fraco,SE,Sem Chuva,N/D,3,05/11/2026
-Melgaço,18.6,6.0,,,Fraco,E,Sem Chuva,N/D,3,05/11/2026
-Monção,19.0,6.0,,,Fraco,E,Sem Chuva,N/D,3,05/11/2026
-Paredes de Coura,17.0,6.1,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
-Ponte da Barca,19.2,6.8,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
-Ponte de Lima,19.1,5.6,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
-Valença,19.4,6.7,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
-Viana do Castelo,16.7,8.1,,,Fraco,E,Sem Chuva,N/D,3,05/11/2026
-Vila Nova de Cerveira,19.2,6.0,,,Fraco,S,Sem Chuva,N/D,3,05/11/2026
+Arcos de Valdevez,19.1,5.4,,,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Caminha,17.5,7.6,,,Fraco,E,Sem Chuva,N/D,1,04/11/2026
+Melgaço,18.3,5.3,,,Fraco,E,Sem Chuva,N/D,1,04/11/2026
+Monção,18.8,5.5,,,Fraco,E,Sem Chuva,N/D,1,04/11/2026
+Paredes de Coura,17.0,4.3,,,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Ponte da Barca,19.3,5.6,,,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Ponte de Lima,19.3,4.0,,,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Valença,19.2,5.4,,,Fraco,N,Sem Chuva,N/D,1,04/11/2026
+Viana do Castelo,16.8,7.9,,,Moderado,E,Sem Chuva,N/D,1,04/11/2026
+Vila Nova de Cerveira,19.0,4.8,,,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Arcos de Valdevez,19.0,6.6,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
+Caminha,17.7,8.6,,,Fraco,SE,Sem Chuva,N/D,2,05/11/2026
+Melgaço,18.6,6.0,,,Fraco,E,Sem Chuva,N/D,2,05/11/2026
+Monção,19.0,6.0,,,Fraco,E,Sem Chuva,N/D,2,05/11/2026
+Paredes de Coura,17.0,6.1,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
+Ponte da Barca,19.2,6.8,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
+Ponte de Lima,19.1,5.6,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
+Valença,19.4,6.7,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
+Viana do Castelo,16.7,8.1,,,Fraco,E,Sem Chuva,N/D,2,05/11/2026
+Vila Nova de Cerveira,19.2,6.0,,,Fraco,S,Sem Chuva,N/D,2,05/11/2026
 Arcos de Valdevez,20.0,8.2,,,Fraco,NE,Chuva Fraca,N/D,7,06/11/2026
-Caminha,18.6,10.2,,,Fraco,SE,Chuva Fraca,N/D,7,06/11/2026
+Caminha,18.6,10.2,,,Fraco,SE,Chuva Fraca,N/D,3,06/11/2026
 Melgaço,19.5,7.5,,,Fraco,E,Chuva Fraca,N/D,7,06/11/2026
 Monção,19.8,7.7,,,Fraco,SW,Chuva Fraca,N/D,7,06/11/2026
 Paredes de Coura,17.8,7.7,,,Fraco,S,Chuva Fraca,N/D,7,06/11/2026
