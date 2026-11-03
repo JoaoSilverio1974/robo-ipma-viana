@@ -1,26 +1,26 @@
 ﻿Concelho,Temp_Max,Temp_Min,Hum_Max,Hum_Min,Vento_Int,Vento_Dir,Precip,Risco,ID_Tempo,Dia
-Arcos de Valdevez,19.8,6.9,0.9129999999999999,0.379,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
+Arcos de Valdevez,19.8,6.9,0.9129999999999999,0.379,Fraco,NE,Sem Chuva,N/D,1,03/11/2026
 Caminha,18.8,8.8,0.862,0.506,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
 Melgaço,17.8,6.8,0.96,0.426,Fraco,E,Sem Chuva,N/D,2,03/11/2026
 Monção,18.7,7.7,0.892,0.406,Fraco,E,Sem Chuva,N/D,1,03/11/2026
-Paredes de Coura,16.9,4.7,0.9359999999999999,0.42100000000000004,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
-Ponte da Barca,20.0,7.0,0.912,0.379,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
-Ponte de Lima,19.6,5.2,0.98,0.449,Fraco,N,Sem Chuva,N/D,2,03/11/2026
-Valença,18.9,7.0,0.9209999999999999,0.42200000000000004,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
-Viana do Castelo,18.5,9.5,0.789,0.368,Moderado,E,Sem Chuva,N/D,2,03/11/2026
-Vila Nova de Cerveira,18.8,7.3,0.912,0.429,Fraco,NE,Sem Chuva,N/D,2,03/11/2026
-Arcos de Valdevez,16.8,4.4,0.9279999999999999,0.46399999999999997,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
+Paredes de Coura,16.9,4.7,0.9359999999999999,0.42100000000000004,Fraco,NE,Sem Chuva,N/D,1,03/11/2026
+Ponte da Barca,20.0,7.0,0.912,0.379,Fraco,NE,Sem Chuva,N/D,1,03/11/2026
+Ponte de Lima,19.6,5.2,0.98,0.449,Fraco,N,Sem Chuva,N/D,1,03/11/2026
+Valença,18.9,7.0,0.9209999999999999,0.42200000000000004,Fraco,NE,Sem Chuva,N/D,1,03/11/2026
+Viana do Castelo,18.5,9.5,0.789,0.368,Moderado,E,Sem Chuva,N/D,1,03/11/2026
+Vila Nova de Cerveira,18.8,7.3,0.912,0.429,Fraco,NE,Sem Chuva,N/D,1,03/11/2026
+Arcos de Valdevez,16.8,4.4,0.9279999999999999,0.46399999999999997,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
 Caminha,15.6,6.8,0.932,0.557,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Melgaço,16.3,4.8,0.927,0.428,Fraco,E,Sem Chuva,N/D,2,04/11/2026
-Monção,16.7,5.1,0.903,0.461,Fraco,E,Sem Chuva,N/D,2,04/11/2026
-Paredes de Coura,14.5,3.2,0.8909999999999999,0.529,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Ponte da Barca,17.0,4.6,0.927,0.46399999999999997,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Ponte de Lima,16.9,3.7,0.966,0.513,Fraco,NE,Sem Chuva,N/D,2,04/11/2026
-Valença,16.8,4.7,0.9309999999999999,0.534,Fraco,NW,Sem Chuva,N/D,2,04/11/2026
+Melgaço,16.3,4.8,0.927,0.428,Fraco,E,Sem Chuva,N/D,1,04/11/2026
+Monção,16.7,5.1,0.903,0.461,Fraco,E,Sem Chuva,N/D,1,04/11/2026
+Paredes de Coura,14.5,3.2,0.8909999999999999,0.529,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Ponte da Barca,17.0,4.6,0.927,0.46399999999999997,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Ponte de Lima,16.9,3.7,0.966,0.513,Fraco,NE,Sem Chuva,N/D,1,04/11/2026
+Valença,16.8,4.7,0.9309999999999999,0.534,Fraco,NW,Sem Chuva,N/D,1,04/11/2026
 Viana do Castelo,15.8,6.0,0.93,0.425,Moderado,E,Sem Chuva,N/D,1,04/11/2026
-Vila Nova de Cerveira,16.4,3.8,0.951,0.5720000000000001,Fraco,E,Sem Chuva,N/D,2,04/11/2026
+Vila Nova de Cerveira,16.4,3.8,0.951,0.5720000000000001,Fraco,E,Sem Chuva,N/D,1,04/11/2026
 Arcos de Valdevez,17.1,4.7,0.851,0.392,Fraco,NE,Sem Chuva,N/D,1,05/11/2026
-Caminha,16.4,6.8,0.96,0.486,Fraco,E,Sem Chuva,N/D,1,05/11/2026
+Caminha,16.4,6.8,0.96,0.486,Fraco,E,Sem Chuva,N/D,2,05/11/2026
 Melgaço,16.5,4.8,0.882,0.473,Fraco,W,Sem Chuva,N/D,1,05/11/2026
 Monção,17.0,4.7,0.888,0.45899999999999996,Fraco,E,Sem Chuva,N/D,1,05/11/2026
 Paredes de Coura,15.4,4.8,0.8170000000000001,0.426,Fraco,E,Sem Chuva,N/D,1,05/11/2026
@@ -29,43 +29,43 @@ Ponte de Lima,17.4,4.6,0.9590000000000001,0.45,Fraco,NE,Sem Chuva,N/D,1,05/11/20
 Valença,17.9,4.9,0.934,0.45399999999999996,Fraco,W,Sem Chuva,N/D,1,05/11/2026
 Viana do Castelo,14.9,4.6,0.966,0.51,Fraco,E,Sem Chuva,N/D,1,05/11/2026
 Vila Nova de Cerveira,17.4,3.5,1.0,0.503,Fraco,W,Sem Chuva,N/D,1,05/11/2026
-Arcos de Valdevez,18.1,4.6,0.93,0.446,Fraco,S,Chuva Fraca,N/D,10,06/11/2026
-Caminha,17.2,7.1,0.902,0.523,Fraco,SE,Chuva Moderada,N/D,6,06/11/2026
-Melgaço,17.7,4.9,0.955,0.479,Fraco,E,Chuva Moderada,N/D,9,06/11/2026
-Monção,18.0,4.2,0.9420000000000001,0.504,Fraco,E,Chuva Moderada,N/D,9,06/11/2026
-Paredes de Coura,15.7,4.7,0.922,0.483,Fraco,SE,Chuva Fraca,N/D,10,06/11/2026
-Ponte da Barca,18.3,4.9,0.93,0.44299999999999995,Fraco,S,Chuva Fraca,N/D,10,06/11/2026
-Ponte de Lima,17.5,4.6,0.9359999999999999,0.49,Fraco,SE,Chuva Fraca,N/D,10,06/11/2026
-Valença,18.0,4.9,0.912,0.484,Fraco,S,Chuva Moderada,N/D,9,06/11/2026
-Viana do Castelo,16.9,6.1,0.9470000000000001,0.555,Fraco,E,Chuva Moderada,N/D,6,06/11/2026
+Arcos de Valdevez,18.1,4.6,0.93,0.446,Fraco,S,Chuva Fraca,N/D,6,06/11/2026
+Caminha,17.2,7.1,0.902,0.523,Fraco,SE,Chuva Moderada,N/D,9,06/11/2026
+Melgaço,17.7,4.9,0.955,0.479,Fraco,E,Chuva Moderada,N/D,6,06/11/2026
+Monção,18.0,4.2,0.9420000000000001,0.504,Fraco,E,Chuva Moderada,N/D,6,06/11/2026
+Paredes de Coura,15.7,4.7,0.922,0.483,Fraco,SE,Chuva Fraca,N/D,9,06/11/2026
+Ponte da Barca,18.3,4.9,0.93,0.44299999999999995,Fraco,S,Chuva Fraca,N/D,6,06/11/2026
+Ponte de Lima,17.5,4.6,0.9359999999999999,0.49,Fraco,SE,Chuva Fraca,N/D,9,06/11/2026
+Valença,18.0,4.9,0.912,0.484,Fraco,S,Chuva Moderada,N/D,6,06/11/2026
+Viana do Castelo,16.9,6.1,0.9470000000000001,0.555,Fraco,E,Chuva Moderada,N/D,9,06/11/2026
 Vila Nova de Cerveira,17.2,3.8,1.0,0.532,Fraco,SE,Chuva Moderada,N/D,9,06/11/2026
-Arcos de Valdevez,18.7,10.8,1.0,0.86,Fraco,E,Chuva Fraca,N/D,7,07/11/2026
-Caminha,18.5,11.7,1.0,0.8340000000000001,Fraco,SE,Chuva Fraca,N/D,7,07/11/2026
+Arcos de Valdevez,18.7,10.8,1.0,0.86,Fraco,E,Chuva Fraca,N/D,10,07/11/2026
+Caminha,18.5,11.7,1.0,0.8340000000000001,Fraco,SE,Chuva Fraca,N/D,10,07/11/2026
 Melgaço,19.2,10.1,1.0,0.8340000000000001,Fraco,E,Chuva Fraca,N/D,7,07/11/2026
-Monção,19.5,10.5,1.0,0.805,Fraco,E,Chuva Fraca,N/D,7,07/11/2026
-Paredes de Coura,16.6,9.7,0.9590000000000001,0.8440000000000001,Fraco,SE,Chuva Fraca,N/D,7,07/11/2026
-Ponte da Barca,18.9,11.0,1.0,0.86,Fraco,E,Chuva Fraca,N/D,7,07/11/2026
-Ponte de Lima,18.5,10.0,1.0,0.8490000000000001,Fraco,SE,Chuva Fraca,N/D,7,07/11/2026
-Valença,19.4,11.2,0.972,0.8,Fraco,S,Chuva Fraca,N/D,7,07/11/2026
-Viana do Castelo,17.4,11.3,1.0,0.821,Fraco,E,Chuva Fraca,N/D,7,07/11/2026
-Vila Nova de Cerveira,19.2,10.3,1.0,0.8140000000000001,Fraco,S,Chuva Fraca,N/D,7,07/11/2026
+Monção,19.5,10.5,1.0,0.805,Fraco,E,Chuva Fraca,N/D,6,07/11/2026
+Paredes de Coura,16.6,9.7,0.9590000000000001,0.8440000000000001,Fraco,SE,Chuva Fraca,N/D,10,07/11/2026
+Ponte da Barca,18.9,11.0,1.0,0.86,Fraco,E,Chuva Fraca,N/D,10,07/11/2026
+Ponte de Lima,18.5,10.0,1.0,0.8490000000000001,Fraco,SE,Chuva Fraca,N/D,10,07/11/2026
+Valença,19.4,11.2,0.972,0.8,Fraco,S,Chuva Fraca,N/D,10,07/11/2026
+Viana do Castelo,17.4,11.3,1.0,0.821,Fraco,E,Chuva Fraca,N/D,10,07/11/2026
+Vila Nova de Cerveira,19.2,10.3,1.0,0.8140000000000001,Fraco,S,Chuva Fraca,N/D,10,07/11/2026
 Arcos de Valdevez,19.5,12.2,,,Fraco,E,Chuva Moderada,N/D,9,08/11/2026
 Caminha,19.6,13.6,,,Moderado,SE,Chuva Moderada,N/D,9,08/11/2026
 Melgaço,19.7,11.4,,,Fraco,E,Chuva Moderada,N/D,6,08/11/2026
-Monção,20.2,11.8,,,Fraco,E,Chuva Moderada,N/D,9,08/11/2026
+Monção,20.2,11.8,,,Fraco,E,Chuva Moderada,N/D,6,08/11/2026
 Paredes de Coura,17.5,11.3,,,Moderado,SE,Chuva Moderada,N/D,9,08/11/2026
 Ponte da Barca,19.7,12.4,,,Fraco,E,Chuva Moderada,N/D,9,08/11/2026
 Ponte de Lima,19.2,11.6,,,Fraco,SE,Chuva Moderada,N/D,9,08/11/2026
 Valença,20.2,12.6,,,Fraco,SE,Chuva Moderada,N/D,9,08/11/2026
-Viana do Castelo,18.4,13.4,,,Moderado,E,Chuva Moderada,N/D,9,08/11/2026
-Vila Nova de Cerveira,20.1,11.9,,,Moderado,SE,Chuva Moderada,N/D,9,08/11/2026
-Arcos de Valdevez,19.3,12.5,,,Fraco,SE,Chuva Moderada,N/D,9,09/11/2026
-Caminha,19.3,13.6,,,Moderado,SE,Chuva Moderada,N/D,9,09/11/2026
+Viana do Castelo,18.4,13.4,,,Moderado,E,Chuva Moderada,N/D,6,08/11/2026
+Vila Nova de Cerveira,20.1,11.9,,,Moderado,SE,Chuva Moderada,N/D,6,08/11/2026
+Arcos de Valdevez,19.3,12.5,,,Fraco,SE,Chuva Moderada,N/D,11,09/11/2026
+Caminha,19.3,13.6,,,Moderado,SE,Chuva Moderada,N/D,11,09/11/2026
 Melgaço,19.6,11.9,,,Fraco,S,Chuva Moderada,N/D,9,09/11/2026
 Monção,20.1,12.5,,,Moderado,S,Chuva Moderada,N/D,9,09/11/2026
-Paredes de Coura,17.1,11.6,,,Fraco,SE,Chuva Moderada,N/D,9,09/11/2026
-Ponte da Barca,19.5,12.7,,,Fraco,SE,Chuva Moderada,N/D,9,09/11/2026
-Ponte de Lima,19.2,12.0,,,Fraco,SE,Chuva Moderada,N/D,9,09/11/2026
+Paredes de Coura,17.1,11.6,,,Fraco,SE,Chuva Moderada,N/D,11,09/11/2026
+Ponte da Barca,19.5,12.7,,,Fraco,SE,Chuva Moderada,N/D,11,09/11/2026
+Ponte de Lima,19.2,12.0,,,Fraco,SE,Chuva Moderada,N/D,11,09/11/2026
 Valença,19.8,13.0,,,Moderado,S,Chuva Moderada,N/D,9,09/11/2026
 Viana do Castelo,18.4,13.6,,,Moderado,SE,Chuva Moderada,N/D,9,09/11/2026
 Vila Nova de Cerveira,19.6,12.3,,,Moderado,S,Chuva Moderada,N/D,9,09/11/2026
@@ -73,16 +73,16 @@ Arcos de Valdevez,17.3,12.2,,,Fraco,S,Chuva Forte,N/D,11,10/11/2026
 Caminha,17.7,13.1,,,Moderado,S,Chuva Moderada,N/D,9,10/11/2026
 Melgaço,17.6,12.0,,,Fraco,S,Chuva Moderada,N/D,9,10/11/2026
 Monção,18.0,12.4,,,Fraco,S,Chuva Moderada,N/D,9,10/11/2026
-Paredes de Coura,15.3,11.1,,,Moderado,S,Chuva Moderada,N/D,9,10/11/2026
+Paredes de Coura,15.3,11.1,,,Moderado,S,Chuva Moderada,N/D,11,10/11/2026
 Ponte da Barca,17.5,12.4,,,Fraco,S,Chuva Forte,N/D,11,10/11/2026
-Ponte de Lima,17.5,11.6,,,Fraco,S,Chuva Moderada,N/D,9,10/11/2026
+Ponte de Lima,17.5,11.6,,,Fraco,S,Chuva Moderada,N/D,11,10/11/2026
 Valença,18.0,12.7,,,Moderado,S,Chuva Moderada,N/D,9,10/11/2026
 Viana do Castelo,16.5,13.1,,,Fraco,S,Chuva Moderada,N/D,9,10/11/2026
 Vila Nova de Cerveira,17.9,12.0,,,Moderado,S,Chuva Moderada,N/D,9,10/11/2026
 Arcos de Valdevez,17.8,11.0,,,Fraco,SE,Chuva Moderada,N/D,9,11/11/2026
 Caminha,17.8,12.3,,,Moderado,S,Chuva Moderada,N/D,9,11/11/2026
-Melgaço,17.7,10.7,,,Fraco,S,Chuva Moderada,N/D,6,11/11/2026
-Monção,18.2,11.0,,,Fraco,S,Chuva Moderada,N/D,6,11/11/2026
+Melgaço,17.7,10.7,,,Fraco,S,Chuva Moderada,N/D,9,11/11/2026
+Monção,18.2,11.0,,,Fraco,S,Chuva Moderada,N/D,9,11/11/2026
 Paredes de Coura,15.7,10.0,,,Fraco,SE,Chuva Moderada,N/D,9,11/11/2026
 Ponte da Barca,18.0,11.2,,,Fraco,SE,Chuva Moderada,N/D,9,11/11/2026
 Ponte de Lima,17.9,10.5,,,Fraco,SE,Chuva Moderada,N/D,9,11/11/2026
